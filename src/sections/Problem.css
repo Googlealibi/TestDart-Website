@@ -43,7 +43,7 @@
 
 .problem-card {
   position: relative;
-  padding: 30px 22px 22px;
+  padding: 22px;
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.5s ease var(--delay, 0ms), transform 0.5s ease var(--delay, 0ms),
@@ -62,20 +62,6 @@
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
   border-color: rgba(55, 134, 53, 0.4);
-}
-
-.problem-card__number {
-  position: absolute;
-  top: -13px;
-  left: 22px;
-  background: var(--green-light);
-  color: var(--green-dark);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  padding: 5px 11px;
-  border-radius: 20px;
-  box-shadow: 0 0 0 3px var(--white);
 }
 
 .problem-card__icon {

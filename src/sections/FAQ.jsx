@@ -40,7 +40,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="section section--surface" id="faq">
+    <section className="section section--bg" id="faq">
       <div className="container">
         <div className="section-head section-head--center">
           <span className="eyebrow">FAQ</span>
@@ -66,8 +66,8 @@ export default function FAQ() {
                   >
                     <span>{item.q}</span>
                     <span className="faq-item__icon" aria-hidden="true">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                      <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                        <path d="M2.5 5.2L7 9.5l4.5-4.3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
                   </button>

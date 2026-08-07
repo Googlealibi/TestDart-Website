@@ -120,7 +120,6 @@ export default function Problem() {
           <div className="problem-grid">
             {POINTS.map(({ Icon, Mock, title, body }, i) => (
               <div className="problem-card card" key={title} style={{ '--delay': `${150 + i * 130}ms` }}>
-                <span className="problem-card__number">{String(i + 1).padStart(2, '0')}</span>
                 <div className="problem-card__icon">
                   <Icon />
                 </div>

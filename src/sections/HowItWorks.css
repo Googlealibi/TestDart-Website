@@ -11,7 +11,7 @@
 
 .workflow__line {
   position: absolute;
-  top: 34px;
+  top: 48px;
   left: calc(10% - 4px);
   right: calc(10% - 4px);
   height: 2px;
@@ -28,28 +28,43 @@
   transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Card shell matches every other section on the page (.problem-card,
+   .feature-card): white surface, hairline border, soft shadow, flat
+   2D hover lift. The step-progression animation lives inside this
+   shell instead of being a bare icon-and-text pipeline. */
 .workflow__step {
   position: relative;
   text-align: center;
+  padding: 24px 16px 20px;
+  background: var(--white);
+  border: 1.5px solid var(--slate-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.45s ease var(--delay, 0ms), transform 0.45s ease var(--delay, 0ms);
+  transition: opacity 0.45s ease var(--delay, 0ms), transform 0.45s ease var(--delay, 0ms),
+    box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .workflow.is-visible .workflow__step {
   opacity: 1;
   transform: translateY(0);
 }
+.workflow.is-visible .workflow__step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
+  border-color: rgba(55, 134, 53, 0.35);
+}
 
 .workflow__node {
-  width: 68px;
-  height: 68px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--slate-400);
-  box-shadow: 0 0 0 6px var(--bg), 0 3px 8px rgba(15,23,42,0.12);
+  box-shadow: 0 3px 8px rgba(15,23,42,0.12);
   transform: perspective(600px) translateZ(var(--z, 0px)) scale(0.92);
   transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
 }
@@ -60,17 +75,17 @@
 /* completed stage: settled green, no glow/elevation */
 .workflow__step.is-done .workflow__node {
   background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%);
-  box-shadow: 0 0 0 6px var(--bg), 0 4px 10px rgba(55,134,53,0.18);
+  box-shadow: 0 4px 10px rgba(55,134,53,0.18);
 }
 
 /* currently running stage: green + glow + raised depth */
 .workflow__step.is-active .workflow__node {
   background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%);
-  box-shadow: 0 0 0 6px var(--bg), 0 10px 24px rgba(55,134,53,0.4);
+  box-shadow: 0 10px 24px rgba(55,134,53,0.4);
   transform: perspective(600px) translateZ(calc(var(--z, 0px) + 16px)) scale(1.08);
 }
 
-.workflow__node img { width: 26px; height: 26px; }
+.workflow__node img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
 
 .workflow__step h3 {
   font-size: 14.5px;
@@ -82,7 +97,6 @@
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--slate-600);
-  padding: 0 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -105,25 +119,11 @@
 }
 
 @media (max-width: 700px) {
-  .workflow__stage {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
+  /* Same single-column card stack every other section falls back to
+     (.problem-grid, .features-grid) — no separate list treatment. */
+  .workflow__stage { grid-template-columns: 1fr; gap: 16px; }
   .workflow__line { display: none; }
-  .workflow__step {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    text-align: left;
-    padding: 14px 0;
-    border-bottom: 1px dashed var(--slate-300);
-  }
-  .workflow__step:last-child { border-bottom: none; }
-  .workflow__node {
-    margin: 0;
-    flex-shrink: 0;
-    transform: scale(0.92) !important;
-  }
+  .workflow__node { transform: scale(0.92) !important; }
   .workflow.is-visible .workflow__node { transform: scale(1) !important; }
   .workflow__step.is-active .workflow__node { transform: scale(1.08) !important; }
 }

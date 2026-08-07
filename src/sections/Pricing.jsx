@@ -3,7 +3,7 @@ import './Pricing.css';
 
 export default function Pricing() {
   return (
-    <section className="section section--bg" id="pricing">
+    <section className="section section--surface" id="pricing">
       <div className="container">
         <div className="section-head section-head--center">
           <span className="eyebrow">Pricing</span>
