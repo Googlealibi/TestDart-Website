@@ -26,6 +26,9 @@
 
   --bg: #DDE3EB;
   --surface: #E8EDF3;
+  --bg-rgb: 221, 227, 235;
+  --surface-rgb: 232, 237, 243;
+  --green-rgb: 55, 134, 53;
 
   --shadow-sm: 0 2px 8px rgba(15,23,42,0.12), 0 1px 3px rgba(15,23,42,0.08);
   --shadow-md: 0 8px 20px rgba(15,23,42,0.14), 0 3px 8px rgba(15,23,42,0.08);
@@ -76,8 +79,13 @@ button { font-family: inherit; cursor: pointer; }
   padding: var(--section-pad) 0;
 }
 
-.section--surface { background: var(--surface); }
-.section--bg { background: var(--bg); }
+.section--surface { background: rgba(var(--surface-rgb), 0.94); }
+.section--bg { background: rgba(var(--bg-rgb), 0.94); }
+
+/* Every section sits above the fixed SiteBackground; translucent fills
+   above let its signal-path system bleed through continuously instead of
+   the page reading as opaque stacked blocks. */
+.hero, .section, .cta, .footer { position: relative; z-index: 1; }
 
 .eyebrow {
   display: inline-block;
@@ -151,7 +159,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 .btn-ghost:hover { color: var(--green); }
 
+@property --card-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .card {
+  position: relative;
   background: var(--white);
   border: 1.5px solid var(--slate-300);
   border-radius: var(--radius);
@@ -159,9 +174,37 @@ button { font-family: inherit; cursor: pointer; }
   transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 .card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), 0 22px 46px -26px rgba(var(--green-rgb), 0.35);
   transform: translateY(-3px);
   border-color: rgba(55,134,53,0.35);
+}
+
+/* Edge-light sweep: a thin conic gradient ring, masked down to a 1px
+   border, rotating only while hovered — reads as a circuit trace waking
+   up along the card's edge rather than a decorative glow. */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--card-angle), transparent 0 72%, rgba(var(--green-rgb), 0.6) 87%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.card:hover::after {
+  opacity: 1;
+  animation: cardEdgeSweep 2.4s linear infinite;
+}
+@keyframes cardEdgeSweep {
+  to { --card-angle: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card::after { animation: none !important; opacity: 0 !important; }
 }
 
 /* Subtle pop on hover — used sparingly, not on every card.
@@ -219,6 +262,66 @@ button { font-family: inherit; cursor: pointer; }
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Section headings: one observer toggles .is-visible, CSS staggers the
+   eyebrow / title / body with their own timing so the block reveals in
+   layers instead of fading in as a single flat unit. */
+.section-head {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section-head.is-visible { opacity: 1; transform: translateY(0); }
+.section-head .eyebrow,
+.section-head h2,
+.section-head p { opacity: 0; }
+.section-head.is-visible .eyebrow { animation: headEyebrowIn 0.5s ease 0.05s both; }
+.section-head.is-visible h2 { animation: headTitleIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both; }
+.section-head.is-visible p { animation: headBodyIn 0.6s ease 0.24s both; }
+@keyframes headEyebrowIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes headTitleIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes headBodyIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Masked word-by-word heading reveal — each word is clipped by an
+   overflow-hidden wrapper and slides up from behind its own mask, with a
+   short per-word delay driven by --i. Used on the hero title. */
+.mask-reveal__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.mask-reveal__word {
+  display: inline-block;
+  transform: translateY(115%);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 55ms);
+  will-change: transform;
+}
+.is-visible .mask-reveal__word { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-head,
+  .section-head .eyebrow,
+  .section-head h2,
+  .section-head p {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .mask-reveal__word {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 900px) {

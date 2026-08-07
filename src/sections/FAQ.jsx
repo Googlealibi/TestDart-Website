@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SectionHead from '../components/SectionHead';
 import './FAQ.css';
 
 const ITEMS = [
@@ -42,11 +43,11 @@ export default function FAQ() {
   return (
     <section className="section section--bg" id="faq">
       <div className="container">
-        <div className="section-head section-head--center">
+        <SectionHead className="section-head--center">
           <span className="eyebrow">FAQ</span>
           <h2>Frequently asked questions</h2>
           <p>Answers to the questions teams ask when evaluating TestDart.</p>
-        </div>
+        </SectionHead>
 
         <div className="faq-list">
           {ITEMS.map((item, i) => {

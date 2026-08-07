@@ -1,4 +1,5 @@
 import useReveal from '../hooks/useReveal';
+import SectionHead from '../components/SectionHead';
 import './Demo.css';
 
 const SEQUENCE = ['Generate Test Cases', 'Approve', 'Execute', 'View Report'];
@@ -8,11 +9,11 @@ export default function Demo() {
   return (
     <section className="section section--surface" id="demo">
       <div className="container">
-        <div className="section-head section-head--center">
+        <SectionHead className="section-head--center">
           <span className="eyebrow">Product Demo</span>
           <h2>See the full workflow, start to finish</h2>
           <p>Generate test cases, approve them, watch the run, and open the report — one continuous flow.</p>
-        </div>
+        </SectionHead>
 
         <div ref={ref} className={`demo reveal ${visible ? 'is-visible' : ''}`}>
           <div className="demo__frame chrome-frame">

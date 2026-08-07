@@ -36,7 +36,7 @@ export default function HeroPipeline() {
 
       <div className="hero-pipeline__pill hero-pipeline__pill--approval">
         <span className="hero-pipeline__pill-dot" />
-        Approved
+        Executed
       </div>
 
       <div className="hero-pipeline__window">

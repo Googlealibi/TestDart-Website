@@ -3,10 +3,10 @@ import { DocumentIcon, ImportIcon, EditIcon } from '../components/LineIcons';
 import './AIGeneration.css';
 
 const CASES = [
-  { id: 'TC-041', title: 'Reject login with invalid password', priority: 'High' },
-  { id: 'TC-042', title: 'Lock account after 5 failed attempts', priority: 'High' },
-  { id: 'TC-043', title: 'Allow login with valid credentials', priority: 'Medium' },
-  { id: 'TC-044', title: 'Show inline error for empty fields', priority: 'Low' },
+  { id: 'TC-041', title: 'Reject login with invalid password', priority: 'Pass' },
+  { id: 'TC-042', title: 'Lock account after 5 failed attempts', priority: 'Fail' },
+  { id: 'TC-043', title: 'Allow login with valid credentials', priority: 'Pass' },
+  { id: 'TC-044', title: 'Show inline error for empty fields', priority: 'Fail' },
 ];
 
 const LIST_ITEMS = [

@@ -24,16 +24,6 @@
 
 #problem .container { position: relative; z-index: 1; }
 
-.problem-head {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.problem-content.is-visible .problem-head {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .problem-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

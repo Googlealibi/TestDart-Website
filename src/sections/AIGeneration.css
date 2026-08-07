@@ -106,8 +106,8 @@
   padding: 2px 7px;
   border-radius: 5px;
 }
-.p-high { background: rgba(220,38,38,0.10); color: #B91C1C; }
-.p-medium { background: rgba(217,119,6,0.12); color: #92400E; }
+.p-fail { background: rgba(220,38,38,0.10); color: #B91C1C; }
+.p-pass { background: rgba(217,119,6,0.12); color: #3a920e; }
 .p-low { background: var(--slate-100); color: var(--slate-500); }
 
 @media (max-width: 980px) {

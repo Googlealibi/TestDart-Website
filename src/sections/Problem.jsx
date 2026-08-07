@@ -1,4 +1,5 @@
 import useReveal from '../hooks/useReveal';
+import SectionHead from '../components/SectionHead';
 import { ClipboardIcon, LinkIcon, PlayIcon, BarChartIcon, ClockIcon, SparkleIcon } from '../components/LineIcons';
 import './Problem.css';
 
@@ -111,11 +112,11 @@ export default function Problem() {
       </div>
       <div className="container">
         <div ref={ref} className={`problem-content ${visible ? 'is-visible' : ''}`}>
-          <div className="section-head problem-head">
+          <SectionHead className="problem-head">
             <span className="eyebrow">Where QA Gets Stuck</span>
             <h2>Testing gets harder when every step lives in a different place.</h2>
             <p>Testing shouldn't slow down the teams building the product.</p>
-          </div>
+          </SectionHead>
 
           <div className="problem-grid">
             {POINTS.map(({ Icon, Mock, title, body }, i) => (

@@ -1,15 +1,16 @@
 import { CONTACT_EMAIL } from '../config/links';
+import SectionHead from '../components/SectionHead';
 import './Pricing.css';
 
 export default function Pricing() {
   return (
     <section className="section section--surface" id="pricing">
       <div className="container">
-        <div className="section-head section-head--center">
+        <SectionHead className="section-head--center">
           <span className="eyebrow">Pricing</span>
           <h2>Plans designed for your testing workflow</h2>
           <p>Choose the setup that fits your team's testing needs. Talk to us to learn about TestDart plans and availability.</p>
-        </div>
+        </SectionHead>
 
         <div className="pricing-panel card tilt-card">
           <div className="pricing-panel__icon">

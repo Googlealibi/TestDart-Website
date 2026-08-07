@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import useReveal from '../hooks/useReveal';
+import SectionHead from '../components/SectionHead';
 import requirementsIcon from '../assets/icons/requirements.svg';
 import testgenIcon from '../assets/icons/testgen.svg';
 import bugReportIcon from '../assets/icons/bug-report.svg';
@@ -52,11 +53,11 @@ export default function HowItWorks() {
   return (
     <section className="section section--bg" id="how-it-works">
       <div className="container">
-        <div className="section-head">
+        <SectionHead>
           <span className="eyebrow">How It Works</span>
           <h2>From requirement to report, in one flow</h2>
           <p>The same pipeline runs on demand or on a schedule — nothing here is a separate manual handoff.</p>
-        </div>
+        </SectionHead>
 
         <div ref={ref} className={`workflow ${visible ? 'is-visible' : ''}`}>
           <div className="workflow__stage">

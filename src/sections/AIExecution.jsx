@@ -44,12 +44,12 @@ export default function AIExecution() {
                     </div>
                   ))}
                 </div>
-                <div className="run-mock__gate">Waiting on approval to continue to Checkout Suite</div>
+                
               </div>
             </AppShellMock>
           </div>
 
-          <div className="aiexec__copy">
+          <div className={`aiexec__copy reveal ${visible ? 'is-visible' : ''}`}>
             <span className="eyebrow">AI Browser Execution</span>
             <h2>An agent runs your approved test cases in a real browser</h2>
             <p>

@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
 import HeroPipeline from '../components/HeroPipeline';
+import MaskReveal from '../components/MaskReveal';
+import useReveal from '../hooks/useReveal';
 import { SparkleIcon, BrowserIcon, ReportIcon } from '../components/LineIcons';
 import './Hero.css';
 
@@ -10,12 +12,16 @@ const TRUST_ITEMS = [
 ];
 
 export default function Hero() {
+  const [ref, visible] = useReveal(0.1);
   return (
     <section className="hero" id="top">
       <div className="container hero__grid">
-        <div className="hero__copy">
+        <div ref={ref} className={`hero__copy ${visible ? 'is-visible' : ''}`}>
           <span className="eyebrow">AI-Assisted QA Platform</span>
-          <h1>From testing bottlenecks to <span className="hero__highlight">browser-verified confidence.</span></h1>
+          <h1>
+            <MaskReveal text="From testing bottlenecks to" />{' '}
+            <MaskReveal text="browser-verified confidence." className="hero__highlight" />
+          </h1>
           <p className="hero__sub">
             Bring in a requirement, Jira issue, or document. TestDart generates test cases,
             runs approved tests in a real browser, and delivers a clear report.

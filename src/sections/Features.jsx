@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import useReveal from '../hooks/useReveal';
+import SectionHead from '../components/SectionHead';
 import requirementsIcon from '../assets/icons/requirements.svg';
 import executionIcon from '../assets/icons/execution.svg';
 import reportsIcon from '../assets/icons/reports.svg';
@@ -218,10 +219,10 @@ export default function Features() {
   return (
     <section className="section section--bg" id="features">
       <div className="container">
-        <div className="section-head">
+        <SectionHead>
           <span className="eyebrow">Platform</span>
           <h2>Everything around the testing workflow, in one place</h2>
-        </div>
+        </SectionHead>
 
         <div
           ref={(node) => { gridRef.current = node; ref.current = node; }}
