@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useReveal from '../hooks/useReveal';
 import SectionHead from '../components/SectionHead';
 import requirementsIcon from '../assets/icons/requirements.svg';
@@ -24,7 +24,6 @@ const FEATURES = [
 ];
 
 const TILT_MAX_DEG = 2.5; // cursor-follow hover tilt ceiling — a highlight, not a pop-out
-const DEAL_MS = 700;
 
 function colsForWidth(w) {
   if (w <= 700) return 1;
@@ -119,64 +118,27 @@ export default function Features() {
     };
   }, []);
 
-  // Deck deal, staged in two effects fired only once the section actually
-  // scrolls into view (not at page mount): a layout effect stacks every
-  // card back toward a single point above the grid (measuring rects is
-  // the expensive part — doing it unconditionally at mount, for a
-  // section that might be off-screen for a while, is exactly what made
-  // page load feel janky). Cards are plain `opacity: 0` via CSS by
-  // default, so nothing needs to render or measure before this fires.
-  useLayoutEffect(() => {
-    if (!visible || reducedMotionRef.current) return;
-    const grid = gridRef.current;
-    if (!grid) return;
-    const gridRect = grid.getBoundingClientRect();
-    const originX = gridRect.left + gridRect.width / 2;
-    const originY = gridRect.top + 30;
-
-    // Read every card's rect first, then write — interleaving a read and
-    // a style write per card forces the browser to recompute layout on
-    // each iteration (classic layout-thrashing), which is exactly the
-    // kind of hitch that shows up as a stutter right as the deck starts
-    // dealing out.
-    const entries = Object.entries(nodesRef.current);
-    const rects = entries.map(([, el]) => el?.getBoundingClientRect());
-
-    entries.forEach(([, el], i) => {
-      const r = rects[i];
-      if (!el || !r) return;
-      const dx = originX - (r.left + r.width / 2);
-      const dy = originY - (r.top + r.height / 2);
-      const rot = (i % 2 === 0 ? -1 : 1) * (5 + (i % 3) * 3.5);
-      el.style.transition = 'none';
-      el.style.zIndex = String(20 - i);
-      el.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(0.78)`;
-    });
-  }, [visible]);
-
+  // Entrance is plain CSS (see .feature-card / .features-grid.is-visible
+  // in Features.css) — a straight fade + rise, staggered by --delay. This
+  // effect only tracks when each card's entrance transition has finished,
+  // so the idle float loop knows it's safe to take over.
   useEffect(() => {
-    if (!visible) return;
+    if (!visible) return undefined;
     if (reducedMotionRef.current) {
-      // No stack/deal was ever staged — just make the cards visible.
-      Object.values(nodesRef.current).forEach((el) => { if (el) el.style.opacity = '1'; });
       FEATURES.forEach((f) => settledRef.current.add(f.title));
-      return;
+      return undefined;
     }
+    const listeners = [];
     Object.entries(nodesRef.current).forEach(([title, el]) => {
       if (!el) return;
-      requestAnimationFrame(() => {
-        el.style.transition = `transform ${DEAL_MS}ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms), opacity 500ms ease var(--delay, 0ms)`;
-        el.style.opacity = '1';
-        el.style.transform = '';
-        const clear = () => {
-          el.style.transition = '';
-          el.style.zIndex = '';
-          el.removeEventListener('transitionend', clear);
-          settledRef.current.add(title); // now safe to hand off to the idle loop
-        };
-        el.addEventListener('transitionend', clear);
-      });
+      const onEnd = (e) => {
+        if (e.propertyName !== 'transform') return;
+        settledRef.current.add(title);
+      };
+      el.addEventListener('transitionend', onEnd);
+      listeners.push([el, onEnd]);
     });
+    return () => listeners.forEach(([el, onEnd]) => el.removeEventListener('transitionend', onEnd));
   }, [visible]);
 
   // Cursor-follow 3D tilt on hover — self-contained perspective per card,
