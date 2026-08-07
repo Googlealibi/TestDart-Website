@@ -1,0 +1,30 @@
+.pricing-panel {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 44px 40px;
+  text-align: center;
+}
+
+.pricing-panel__icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 18px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pricing-panel h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 22px;
+}
+
+.pricing-panel .btn { height: 46px; padding: 0 28px; font-size: 15px; }
+
+@media (max-width: 560px) {
+  .pricing-panel { padding: 36px 24px; }
+}

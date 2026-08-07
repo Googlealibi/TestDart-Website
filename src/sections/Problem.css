@@ -1,0 +1,349 @@
+#problem {
+  position: relative;
+  overflow: hidden;
+}
+
+.problem-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.problem-bg svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(900px, 70%);
+  height: 260px;
+  stroke: var(--slate-300);
+  stroke-width: 1;
+  fill: none;
+  opacity: 0.6;
+}
+.problem-bg circle { fill: var(--slate-300); stroke: none; }
+
+#problem .container { position: relative; z-index: 1; }
+
+.problem-head {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.problem-content.is-visible .problem-head {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 8px;
+}
+
+.problem-card {
+  position: relative;
+  padding: 30px 22px 22px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease var(--delay, 0ms), transform 0.5s ease var(--delay, 0ms),
+    box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.problem-content.is-visible .problem-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Depth on hover comes from a 2D lift + shadow only — no perspective()/
+   translateZ/rotate on the card itself, since any 3D transform on a
+   text-bearing element makes the browser rasterize that text off the
+   pixel grid, which reads as blur. Only the icon (decorative) gets a tilt. */
+.problem-card.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
+  border-color: rgba(55, 134, 53, 0.4);
+}
+
+.problem-card__number {
+  position: absolute;
+  top: -13px;
+  left: 22px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 5px 11px;
+  border-radius: 20px;
+  box-shadow: 0 0 0 3px var(--white);
+}
+
+.problem-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(55, 134, 53, 0.08);
+  border: 1px solid rgba(55, 134, 53, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: var(--green);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.problem-card__icon svg { width: 22px; height: 22px; }
+.problem-card.card:hover .problem-card__icon {
+  transform: rotate(-4deg) scale(1.08);
+  background: rgba(55, 134, 53, 0.14);
+}
+
+.problem-card h3 {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.3;
+}
+.problem-card p {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--slate-600);
+}
+
+/* ---- mini illustration mockups ---- */
+.problem-mock {
+  position: relative;
+  margin-top: 18px;
+  min-height: 108px;
+  padding: 14px;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.problem-mock__row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.problem-mock__row:last-of-type { margin-bottom: 0; }
+.problem-mock__box {
+  width: 13px; height: 13px; flex-shrink: 0;
+  border-radius: 4px;
+  background: var(--white);
+  border: 1px solid var(--slate-300);
+}
+.problem-mock__line {
+  height: 7px;
+  width: 62%;
+  border-radius: 4px;
+  background: var(--slate-200);
+}
+.problem-mock__line--wide { width: 78%; }
+.problem-mock__line--accent { background: rgba(55, 134, 53, 0.35); width: 58%; }
+
+.problem-mock__badge {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 2px solid var(--green);
+  color: var(--green);
+  box-shadow: var(--shadow-sm);
+}
+.problem-mock__badge svg { width: 13px; height: 13px; }
+.problem-mock__badge--query {
+  font-size: 13px;
+  font-weight: 800;
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+.problem-mock__badge--gauge {
+  background: conic-gradient(var(--green) 0deg 220deg, var(--slate-200) 220deg 360deg);
+}
+.problem-mock__badge--gauge::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+/* links mock */
+.problem-mock--links { min-height: 88px; }
+.problem-mock__wires { position: absolute; inset: 0; width: 100%; height: 100%; stroke: var(--slate-300); stroke-width: 1.4; stroke-dasharray: 3 3; fill: none; }
+.problem-mock__doc {
+  position: absolute;
+  width: 22px; height: 26px;
+  border-radius: 4px;
+  background: var(--white);
+  border: 1px solid var(--slate-300);
+  box-shadow: var(--shadow-sm);
+}
+
+/* execution mock */
+.problem-mock--exec { padding-top: 12px; }
+.problem-mock__dots { display: flex; gap: 4px; margin-bottom: 10px; }
+.problem-mock__dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--slate-300); display: block; }
+.problem-mock__label { font-size: 11.5px; font-weight: 700; color: var(--slate-700); margin-bottom: 8px; }
+.problem-mock__bar { height: 6px; border-radius: 4px; background: var(--slate-200); overflow: hidden; }
+.problem-mock__bar-fill { width: 55%; height: 100%; border-radius: 4px; background: var(--green); }
+
+/* report mock */
+.problem-mock--report { display: flex; flex-direction: column; gap: 12px; }
+.problem-mock__chip {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green-dark);
+  background: var(--green-light);
+  border-radius: 6px;
+  padding: 3px 9px;
+}
+.problem-mock__report-row { display: flex; align-items: flex-end; gap: 14px; }
+.problem-mock__pie {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: conic-gradient(var(--green) 0deg 220deg, var(--slate-200) 220deg 360deg);
+}
+.problem-mock__bars { display: flex; align-items: flex-end; gap: 5px; height: 34px; }
+.problem-mock__bars i { display: block; width: 8px; border-radius: 3px 3px 0 0; background: rgba(55, 134, 53, 0.55); }
+.problem-mock__bars i:nth-child(1) { height: 40%; }
+.problem-mock__bars i:nth-child(2) { height: 70%; background: rgba(55, 134, 53, 0.75); }
+.problem-mock__bars i:nth-child(3) { height: 100%; background: var(--green); }
+
+/* ---- timeline connector ---- */
+.problem-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 26px;
+  height: 14px;
+}
+.problem-timeline__line {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 50%;
+  height: 2px;
+  background: var(--green);
+  opacity: 0.35;
+  transform: translateY(-50%);
+}
+.problem-timeline__dot {
+  position: relative;
+  justify-self: center;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(55, 134, 53, 0.14);
+}
+.problem-timeline__loop {
+  position: absolute;
+  right: -2px;
+  top: -4px;
+  width: 46px;
+  height: 32px;
+  stroke: var(--green);
+  stroke-width: 1.6;
+  stroke-dasharray: 3 3;
+  fill: none;
+  opacity: 0.6;
+}
+
+/* ---- transition banner ---- */
+.problem-transition {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 32px auto 0;
+  max-width: 720px;
+  text-align: left;
+  padding: 20px 24px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease 0.68s, transform 0.5s ease 0.68s;
+}
+.problem-content.is-visible .problem-transition {
+  opacity: 1;
+  transform: translateY(0);
+}
+.problem-transition__icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(55, 134, 53, 0.1);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.problem-transition span { font-size: 15px; line-height: 1.6; color: var(--slate-700); font-weight: 500; }
+.problem-transition__brand {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ---- bottom tag row ---- */
+.problem-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 26px;
+}
+.problem-tags__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--slate-500);
+  padding: 0 20px;
+}
+.problem-tags__item:not(:first-child) { border-left: 1px solid var(--slate-200); }
+.problem-tags__item svg { width: 14px; height: 14px; color: var(--green); }
+
+@media (prefers-reduced-motion: reduce) {
+  .problem-head,
+  .problem-card,
+  .problem-transition {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .problem-card.card:hover,
+  .problem-card.card:hover .problem-card__icon {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .problem-grid { grid-template-columns: repeat(2, 1fr); }
+  .problem-timeline { display: none; }
+}
+
+@media (max-width: 620px) {
+  .problem-grid { grid-template-columns: 1fr; }
+  .problem-transition { margin-top: 28px; flex-direction: column; align-items: flex-start; }
+  .problem-tags { flex-direction: column; align-items: center; gap: 10px; }
+  .problem-tags__item { border-left: none !important; padding: 0; }
+
+  .problem-card.card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--slate-300);
+  }
+  .problem-card.card:hover .problem-card__icon {
+    transform: none;
+    background: rgba(55, 134, 53, 0.08);
+  }
+}
