@@ -16,9 +16,11 @@
 }
 
 /* Card shell matches every other section (.problem-card, .workflow__step):
-   white surface, hairline border, soft shadow. The deck-deal entrance and
-   the idle float below are the only things driving transform pre-hover —
-   nothing is layered on top of a leftover reveal/drag system. */
+   white surface, hairline border, soft shadow. Transform is left almost
+   entirely to Features.jsx: a per-card sinusoidal float + rotateZ sway
+   combined with scroll-linked row parallax while idle, handed off to a
+   cursor-follow 3D tilt on hover — nothing here is a CSS animation
+   fighting that JS for the same property. */
 .feature-card {
   position: relative;
   padding: 26px;
@@ -26,42 +28,23 @@
   border: 1.5px solid var(--slate-300);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm), 0 14px 28px -22px rgba(15, 23, 42, 0.35);
-  cursor: pointer;
+  opacity: 0;
   transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
 }
 
-.features-grid.is-visible .feature-card {
-  animation: featureFloat 6.4s ease-in-out calc(var(--delay, 0ms) + 900ms) infinite;
-}
-.features-grid.is-visible .feature-card:nth-child(3n+2) { animation-duration: 7.1s; }
-.features-grid.is-visible .feature-card:nth-child(3n) { animation-duration: 5.8s; }
-
-@keyframes featureFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) {
+  .feature-card { opacity: 1; }
 }
 
 /* Hover — cursor-follow 3D tilt (Features.jsx's mousemove handler writes
    the precise rotateX/rotateY; this is the fast, delay-free transition
    that makes the live tracking itself feel responsive). */
-.feature-card:hover:not(.is-focused) {
-  animation-play-state: paused;
+.feature-card:hover {
   transition: transform 0.15s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
-  transform: perspective(1000px) translateY(-5px) rotateX(2deg) scale(1.02);
+  transform: perspective(1200px) translateY(-2px) scale(1.008);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
   border-color: rgba(55, 134, 53, 0.35);
-}
-
-.feature-card.is-focused {
-  animation-play-state: paused;
-  transition: transform 0.3s cubic-bezier(0.22, 0.8, 0.28, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-  transform: perspective(1000px) scale(1.045);
-  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(55, 134, 53, 0.22);
-  border-color: var(--green);
-  z-index: 15;
-}
-.features-grid.has-focus .feature-card:not(.is-focused) {
-  opacity: 0.55;
 }
 
 .feature-card__icon {
@@ -89,11 +72,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .feature-card { animation: none !important; }
-  .feature-card:hover:not(.is-focused) {
+  .feature-card:hover {
     transform: none !important;
     box-shadow: var(--shadow-md) !important;
   }
-  .feature-card.is-focused { transform: none !important; }
 }
 
 @media (max-width: 980px) {
@@ -102,7 +84,7 @@
 
 @media (max-width: 700px) {
   .features-grid { grid-template-columns: 1fr; }
-  .feature-card:hover:not(.is-focused) {
+  .feature-card:hover {
     transform: translateY(-2px);
   }
 }
