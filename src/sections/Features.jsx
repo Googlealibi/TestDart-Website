@@ -22,60 +22,68 @@ const FEATURES = [
   { icon: adminIcon, title: 'Team & Organization Management', body: 'Invite teammates, assign roles, and manage access at the organization level.' },
 ];
 
-const IDENTITY_ORDER = FEATURES.map((_, i) => i);
-const DRAG_THRESHOLD = 6; // px of pointer movement before a press becomes a drag
-const SNAP_RATIO = 0.55; // fraction of card width/height within which a slot magnetically catches
-
-function snapshotRects(nodeMap) {
-  const rects = {};
-  Object.entries(nodeMap).forEach(([title, el]) => {
-    if (el) rects[title] = el.getBoundingClientRect();
-  });
-  return rects;
-}
+const TILT_MAX_DEG = 6; // cursor-follow hover tilt ceiling — restrained, not a gimmick
+const DEAL_MS = 700;
 
 export default function Features() {
   const [ref, visible] = useReveal();
-  const [order, setOrder] = useState(IDENTITY_ORDER);
   const [focusedTitle, setFocusedTitle] = useState(null);
 
   const gridRef = useRef(null);
   const nodesRef = useRef({});
-  const prevRectsRef = useRef(null);
-  const dragRef = useRef(null); // holds all mutable state for an in-flight drag
+  const finePointerRef = useRef(false);
+  const reducedMotionRef = useRef(false);
+  const tiltRafRef = useRef(0);
 
-  // FLIP: whenever card order changes (drag-swap or reset), the cards that
-  // moved are already in their new DOM position; give each one an inverse
-  // transform back to where it visually *was*, then release it into a
-  // transition so it glides into the new slot instead of jump-cutting.
+  useEffect(() => {
+    reducedMotionRef.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    finePointerRef.current =
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reducedMotionRef.current;
+  }, []);
+
+  // Deck deal: before first paint, gather every card back toward a single
+  // point above the grid (like a stacked hand of cards), rotated and
+  // scaled down. When the section scrolls into view, they're dealt out
+  // to their real grid slot in one clean move — the "deck of cards"
+  // interaction, without any persistent drag/reorder machinery.
   useLayoutEffect(() => {
-    const prev = prevRectsRef.current;
-    if (!prev) return;
-    prevRectsRef.current = null;
+    if (reducedMotionRef.current) return;
+    const grid = gridRef.current;
+    if (!grid) return;
+    const gridRect = grid.getBoundingClientRect();
+    const originX = gridRect.left + gridRect.width / 2;
+    const originY = gridRect.top + 30;
 
-    Object.entries(nodesRef.current).forEach(([title, el]) => {
+    Object.values(nodesRef.current).forEach((el, i) => {
       if (!el) return;
-      const before = prev[title];
-      if (!before) return;
-      const after = el.getBoundingClientRect();
-      const dx = before.left - after.left;
-      const dy = before.top - after.top;
-      if (!dx && !dy) return;
+      const r = el.getBoundingClientRect();
+      const dx = originX - (r.left + r.width / 2);
+      const dy = originY - (r.top + r.height / 2);
+      const rot = (i % 2 === 0 ? -1 : 1) * (5 + (i % 3) * 3.5);
       el.style.transition = 'none';
-      el.style.transform = `translate(${dx}px, ${dy}px)`;
-      // eslint-disable-next-line no-unused-expressions
-      el.getBoundingClientRect(); // force reflow so the transition below actually animates
+      el.style.opacity = '0';
+      el.style.zIndex = String(20 - i);
+      el.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(0.78)`;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!visible || reducedMotionRef.current) return;
+    Object.entries(nodesRef.current).forEach(([, el]) => {
+      if (!el) return;
       requestAnimationFrame(() => {
-        el.style.transition = 'transform 0.45s cubic-bezier(0.22, 0.8, 0.28, 1)';
+        el.style.transition = `transform ${DEAL_MS}ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms), opacity 500ms ease var(--delay, 0ms)`;
+        el.style.opacity = '1';
         el.style.transform = '';
         const clear = () => {
           el.style.transition = '';
+          el.style.zIndex = '';
           el.removeEventListener('transitionend', clear);
         };
         el.addEventListener('transitionend', clear);
       });
     });
-  }, [order]);
+  }, [visible]);
 
   useEffect(() => {
     if (!focusedTitle) return undefined;
@@ -86,194 +94,53 @@ export default function Features() {
     return () => window.removeEventListener('keydown', onKey);
   }, [focusedTitle]);
 
-  const reorderWithFlip = (nextOrder) => {
-    prevRectsRef.current = snapshotRects(nodesRef.current);
-    setOrder(nextOrder);
-  };
-
-  const resetLayout = () => {
-    setFocusedTitle(null);
-    reorderWithFlip(IDENTITY_ORDER);
-  };
-
-  const handlePointerDown = (e, title) => {
-    if (e.button !== undefined && e.button !== 0) return;
-
+  // Cursor-follow 3D tilt on hover — self-contained perspective per card,
+  // rAF-batched direct style writes (same lightweight pattern used across
+  // the site), so it costs nothing when the pointer isn't a mouse.
+  const handleCardMouseMove = (e, title) => {
+    if (!finePointerRef.current || focusedTitle) return;
     const el = nodesRef.current[title];
-    if (!el || !gridRef.current) return;
-
-    const container = gridRef.current.getBoundingClientRect();
-    const startRect = el.getBoundingClientRect();
-
-    // Fixed slot centers for every other card, captured once at drag start
-    // (they don't move until a swap actually commits).
-    const slots = Object.entries(nodesRef.current)
-      .filter(([t]) => t !== title)
-      .map(([t, node]) => {
-        const r = node.getBoundingClientRect();
-        return { title: t, cx: r.left + r.width / 2, cy: r.top + r.height / 2 };
-      });
-
-    dragRef.current = {
-      title,
-      el,
-      pointerType: e.pointerType,
-      startX: e.clientX,
-      startY: e.clientY,
-      startRect,
-      container,
-      minDx: container.left - startRect.left,
-      maxDx: container.right - startRect.right,
-      minDy: container.top - startRect.top,
-      maxDy: container.bottom - startRect.bottom,
-      slots,
-      snapTarget: null,
-      moved: false,
-      dragging: false,
-      lastDist: 0,
-      rafId: 0,
-      pendingX: 0,
-      pendingY: 0,
-    };
-
-    window.addEventListener('pointermove', handlePointerMove);
-    window.addEventListener('pointerup', handlePointerUp);
-  };
-
-  const applyDragFrame = () => {
-    const d = dragRef.current;
-    if (!d) return;
-    d.rafId = 0;
-
-    const dx = Math.max(d.minDx, Math.min(d.maxDx, d.pendingX));
-    const dy = Math.max(d.minDy, Math.min(d.maxDy, d.pendingY));
-
-    d.el.style.transform = `translate(${dx}px, ${dy}px) scale(1.025)`;
-
-    const cx = d.startRect.left + d.startRect.width / 2 + dx;
-    const cy = d.startRect.top + d.startRect.height / 2 + dy;
-    const w = d.startRect.width;
-
-    let nearest = null;
-    let nearestDist = Infinity;
-    d.slots.forEach((slot) => {
-      const dist = Math.hypot(slot.cx - cx, slot.cy - cy);
-      if (dist < nearestDist) {
-        nearestDist = dist;
-        nearest = slot;
-      }
+    if (!el) return;
+    const { clientX, clientY } = e;
+    if (tiltRafRef.current) return;
+    tiltRafRef.current = requestAnimationFrame(() => {
+      tiltRafRef.current = 0;
+      const rect = el.getBoundingClientRect();
+      const px = (clientX - rect.left) / rect.width - 0.5;
+      const py = (clientY - rect.top) / rect.height - 0.5;
+      const rx = (py * -TILT_MAX_DEG).toFixed(2);
+      const ry = (px * TILT_MAX_DEG).toFixed(2);
+      el.style.transform = `perspective(1000px) translateY(-5px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
     });
-
-    const nextTarget = nearest && nearestDist < w * SNAP_RATIO ? nearest.title : null;
-    if (nextTarget !== d.snapTarget) {
-      if (d.snapTarget) nodesRef.current[d.snapTarget]?.classList.remove('is-snap-target');
-      if (nextTarget) nodesRef.current[nextTarget]?.classList.add('is-snap-target');
-      d.snapTarget = nextTarget;
-    }
   };
-
-  const handlePointerMove = (e) => {
-    const d = dragRef.current;
-    if (!d) return;
-    const dx = e.clientX - d.startX;
-    const dy = e.clientY - d.startY;
-    d.lastDist = Math.hypot(dx, dy);
-
-    if (!d.dragging) {
-      // Touch: never hijack the gesture into a card-drag — a finger move
-      // is left alone to scroll the page. Only a clean tap (tiny total
-      // movement) is handled, in the pointerup click-branch below.
-      if (d.pointerType === 'touch') return;
-      if (d.lastDist < DRAG_THRESHOLD) return;
-      d.dragging = true;
-      d.moved = true;
-      d.el.classList.add('is-dragging');
-      d.el.style.zIndex = '30';
-    }
-
-    d.pendingX = dx;
-    d.pendingY = dy;
-    if (!d.rafId) d.rafId = requestAnimationFrame(applyDragFrame);
-  };
-
-  const handlePointerUp = () => {
-    window.removeEventListener('pointermove', handlePointerMove);
-    window.removeEventListener('pointerup', handlePointerUp);
-
-    const d = dragRef.current;
-    dragRef.current = null;
-    if (!d) return;
-
-    if (d.rafId) cancelAnimationFrame(d.rafId);
-    if (d.snapTarget) nodesRef.current[d.snapTarget]?.classList.remove('is-snap-target');
-
-    if (!d.moved) {
-      // A press that never escalated to a drag: if the pointer also barely
-      // moved it's a click/tap (toggle focus). If it moved a lot without
-      // escalating, it was a touch pointer scrolling the page — ignore it.
-      if (d.lastDist < DRAG_THRESHOLD) {
-        setFocusedTitle((cur) => (cur === d.title ? null : d.title));
-      }
-      return;
-    }
-
-    d.el.classList.remove('is-dragging');
-    d.el.style.zIndex = '';
-
-    if (d.snapTarget) {
-      const from = order.findIndex((i) => FEATURES[i].title === d.title);
-      const to = order.findIndex((i) => FEATURES[i].title === d.snapTarget);
-      if (from !== -1 && to !== -1) {
-        const next = order.slice();
-        [next[from], next[to]] = [next[to], next[from]];
-        // Snapshot rects *before* clearing the drag transform, so the FLIP
-        // "First" position is where the card visually is (under the
-        // pointer), not its old grid slot — otherwise it would jump back
-        // home for a frame before animating into the new slot.
-        prevRectsRef.current = snapshotRects(nodesRef.current);
-        d.el.style.transform = '';
-        setOrder(next);
-        return;
-      }
-    }
-
-    // No valid drop target: glide back home.
-    d.el.style.transition = 'transform 0.35s cubic-bezier(0.22, 0.8, 0.28, 1)';
-    d.el.style.transform = '';
-    const clear = () => {
-      d.el.style.transition = '';
-      d.el.removeEventListener('transitionend', clear);
-    };
-    d.el.addEventListener('transitionend', clear);
+  const handleCardMouseLeave = (title) => {
+    const el = nodesRef.current[title];
+    if (el) el.style.transform = '';
   };
 
   return (
     <section className="section section--bg" id="features">
       <div className="container">
-        <div className="features-head">
-          <div className="section-head">
-            <span className="eyebrow">Platform</span>
-            <h2>Everything around the testing workflow, in one place</h2>
-          </div>
-          <button type="button" className="features-reset" onClick={resetLayout} aria-label="Reset card layout">
-            <span className="features-reset__icon" aria-hidden="true">&#8634;</span> Reset Layout
-          </button>
+        <div className="section-head">
+          <span className="eyebrow">Platform</span>
+          <h2>Everything around the testing workflow, in one place</h2>
         </div>
 
         <div
           ref={(node) => { gridRef.current = node; ref.current = node; }}
           className={`features-grid ${visible ? 'is-visible' : ''} ${focusedTitle ? 'has-focus' : ''}`}
         >
-          {order.map((idx, i) => {
-            const f = FEATURES[idx];
+          {FEATURES.map((f, i) => {
             const isFocused = focusedTitle === f.title;
             return (
               <div
                 className={`feature-card${isFocused ? ' is-focused' : ''}`}
                 key={f.title}
                 ref={(node) => { nodesRef.current[f.title] = node; }}
-                style={{ '--delay': `${i * 40}ms`, '--float-offset': `${(i % 3) * 700}ms` }}
-                onPointerDown={(e) => handlePointerDown(e, f.title)}
+                style={{ '--delay': `${i * 70}ms` }}
+                onMouseMove={(e) => handleCardMouseMove(e, f.title)}
+                onMouseLeave={() => handleCardMouseLeave(f.title)}
+                onClick={() => setFocusedTitle((cur) => (cur === f.title ? null : f.title))}
               >
                 {f.badge ? (
                   <div className="feature-card__icon feature-card__icon--jira">{f.badge}</div>

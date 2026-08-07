@@ -7,39 +7,6 @@
   #features { padding-bottom: 48px; }
 }
 
-.features-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.features-reset {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: 1px solid var(--slate-300);
-  border-radius: 999px;
-  padding: 7px 14px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--slate-600);
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-}
-.features-reset:hover {
-  color: var(--green-dark);
-  border-color: rgba(55, 134, 53, 0.4);
-  background: rgba(55, 134, 53, 0.06);
-}
-.features-reset:focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 2px;
-}
-.features-reset__icon { font-size: 14px; line-height: 1; }
-
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -48,33 +15,23 @@
   perspective: 1400px;
 }
 
-/* One animation system for this section:
-   1. quick group fade/rise on scroll-in
-   2. a short independent float once settled
-   3. flat 2D-safe hover tilt (self-contained perspective, tiny rotation)
-   4. drag (JS-driven transform on the element directly)
-   5. FLIP transition when the grid order changes (drag-drop / reset)
-   Nothing here is layered on top of a leftover reveal system. */
+/* Card shell matches every other section (.problem-card, .workflow__step):
+   white surface, hairline border, soft shadow. The deck-deal entrance and
+   the idle float below are the only things driving transform pre-hover —
+   nothing is layered on top of a leftover reveal/drag system. */
 .feature-card {
   position: relative;
   padding: 26px;
   background: var(--white);
   border: 1.5px solid var(--slate-300);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.35s ease var(--delay, 0ms), transform 0.35s ease var(--delay, 0ms),
-    box-shadow 0.25s ease, border-color 0.25s ease;
-  touch-action: pan-y;
-  user-select: none;
-  cursor: grab;
+  box-shadow: var(--shadow-sm), 0 14px 28px -22px rgba(15, 23, 42, 0.35);
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .features-grid.is-visible .feature-card {
-  opacity: 1;
-  transform: translateY(0);
-  animation: featureFloat 6.4s ease-in-out calc(var(--delay, 0ms) + 380ms + var(--float-offset, 0ms)) infinite;
+  animation: featureFloat 6.4s ease-in-out calc(var(--delay, 0ms) + 900ms) infinite;
 }
 .features-grid.is-visible .feature-card:nth-child(3n+2) { animation-duration: 7.1s; }
 .features-grid.is-visible .feature-card:nth-child(3n) { animation-duration: 5.8s; }
@@ -84,31 +41,21 @@
   50% { transform: translateY(-3px); }
 }
 
-/* Hover — flat lift with a hairline tilt (<=2deg, self-contained
-   perspective so it never shares a 3D context with sibling text). */
-.feature-card:hover:not(.is-dragging):not(.is-focused) {
+/* Hover — cursor-follow 3D tilt (Features.jsx's mousemove handler writes
+   the precise rotateX/rotateY; this is the fast, delay-free transition
+   that makes the live tracking itself feel responsive). */
+.feature-card:hover:not(.is-focused) {
   animation-play-state: paused;
-  transform: perspective(1200px) translateY(-4px) rotateX(2deg) scale(1.012);
+  transition: transform 0.15s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+  transform: perspective(1000px) translateY(-5px) rotateX(2deg) scale(1.02);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
   border-color: rgba(55, 134, 53, 0.35);
 }
 
-.feature-card.is-dragging {
-  animation-play-state: paused;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  cursor: grabbing;
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.25);
-  border-color: rgba(55, 134, 53, 0.45);
-}
-
-.feature-card.is-snap-target {
-  border-color: var(--green);
-  box-shadow: var(--shadow-md), 0 0 0 3px rgba(55, 134, 53, 0.18);
-}
-
 .feature-card.is-focused {
   animation-play-state: paused;
-  transform: scale(1.045);
+  transition: transform 0.3s cubic-bezier(0.22, 0.8, 0.28, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  transform: perspective(1000px) scale(1.045);
   box-shadow: var(--shadow-lg), 0 0 0 3px rgba(55, 134, 53, 0.22);
   border-color: var(--green);
   z-index: 15;
@@ -128,7 +75,7 @@
   margin-bottom: 16px;
   transition: transform 0.3s ease;
 }
-.feature-card:hover:not(.is-dragging) .feature-card__icon { transform: scale(1.06); }
+.feature-card:hover .feature-card__icon { transform: rotate(-4deg) scale(1.08); }
 .feature-card__icon img { width: 20px; height: 20px; }
 
 .feature-card__icon--jira {
@@ -141,12 +88,8 @@
 .feature-card p { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--slate-600); }
 
 @media (prefers-reduced-motion: reduce) {
-  .feature-card {
-    transition: opacity 0.25s ease !important;
-    transform: none !important;
-    animation: none !important;
-  }
-  .feature-card:hover:not(.is-dragging):not(.is-focused) {
+  .feature-card { animation: none !important; }
+  .feature-card:hover:not(.is-focused) {
     transform: none !important;
     box-shadow: var(--shadow-md) !important;
   }
@@ -159,11 +102,7 @@
 
 @media (max-width: 700px) {
   .features-grid { grid-template-columns: 1fr; }
-  .feature-card {
-    cursor: default;
-    touch-action: manipulation;
-  }
-  .feature-card:hover:not(.is-dragging):not(.is-focused) {
+  .feature-card:hover:not(.is-focused) {
     transform: translateY(-2px);
   }
 }
