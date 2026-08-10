@@ -9,26 +9,26 @@ const REASONS = [
   {
     stage: 1,
     title: 'Start with what your team already has',
-    body: 'Turn requirements, documents, or imported Jira issues into structured test cases without rebuilding the same testing context manually.',
-    outcome: 'Less manual test-case preparation, less context switching.',
+    body: 'Bring in requirements, documents, or existing Jira issues, and TestDart turns them into structured test cases, no rebuilding context from scratch.',
+    outcome: 'Less prep work before testing even starts.',
   },
   {
     stage: 2,
-    title: 'Automate the work. Keep the decision.',
-    body: 'Review and approve generated test cases before they move into execution, keeping QA teams involved at the points that matter.',
-    outcome: 'Automation without removing human review and control.',
+    title: 'Move faster without losing control',
+    body: 'Review test cases before they run, so your team stays in the loop while TestDart handles the repetitive setup.',
+    outcome: 'Speed, without losing sight of what matters.',
   },
   {
     stage: 3,
-    title: 'Move from approved tests to browser execution',
-    body: 'Run approved test cases through a real browser workflow and make execution progress visible instead of relying on repetitive manual execution.',
-    outcome: 'Faster feedback from approved test cases.',
+    title: 'Watch testing happen, not just the result',
+    body: 'Once test cases are approved, TestDart runs them and shows progress as it happens, so your team always knows where things stand.',
+    outcome: 'No more guessing what’s still running.',
   },
   {
     stage: 4,
-    title: 'End with results your team can act on',
-    body: 'Turn execution outcomes into readable reports so teams can understand what passed, what failed, and what needs attention.',
-    outcome: 'Less time interpreting results, more time fixing issues.',
+    title: 'End with answers, not more questions',
+    body: 'Results come back clear and readable, so your team knows what passed, what failed, and what to fix next.',
+    outcome: 'Less time digging through logs, more time fixing what matters.',
   },
 ];
 
@@ -42,11 +42,11 @@ export default function Solution() {
       <div className="container">
         <SectionHead>
           <span className="eyebrow">Why TestDart</span>
-          <h2>Turn QA Bottlenecks Into Test Confidence</h2>
+          <h2>Why Teams Choose TestDart to Move Testing Forward</h2>
           <p>
-            TestDart brings requirements, test case generation, human approval, browser execution,
-            and reporting into one connected testing workflow&mdash;so QA teams spend less time
-            moving work between tools and more time validating what matters.
+            Testing shouldn't be the reason a release slips. TestDart brings requirements, test
+            creation, execution, and reporting together in one workflow&mdash;so your team spends
+            less time moving work between tools and more time getting releases out the door.
           </p>
         </SectionHead>
 
@@ -89,6 +89,11 @@ export default function Solution() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="cta__actions">
+          <button type="button" className="btn btn-primary">Get Started</button>
+          <a href="#ai-generation" className="btn btn-secondary">Explore Features</a>
         </div>
       </div>
     </section>

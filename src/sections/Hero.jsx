@@ -16,14 +16,15 @@ export default function Hero() {
     <section className="hero" id="top">
       <div className="container hero__grid">
         <div ref={ref} className={`hero__copy ${visible ? 'is-visible' : ''}`}>
-          <span className="eyebrow">AI-Assisted QA Platform</span>
+          <span className="eyebrow">For QA & Engineering Teams</span>
           <h1>
-            <MaskReveal text="From testing bottlenecks to" />{' '}
-            <MaskReveal text="browser-verified confidence." className="hero__highlight" />
+            <MaskReveal text="Testing taking too long, right before your release?" />{' '}
+            <MaskReveal text="Move from requirement to tested results, without the last-minute rush." className="hero__highlight" />
           </h1>
           <p className="hero__sub">
-            Bring in a requirement, Jira issue, or document. TestDart generates test cases,
-            runs approved tests in a real browser, and delivers a clear report.
+            Last-minute changes shouldn't leave your QA team rushing to get everything tested.
+            TestDart connects requirements, test creation, browser execution, and results in
+            one workflow, helping your team reduce repetitive testing and keep releases moving.
           </p>
           <div className="hero__actions">
             <button type="button" className="btn btn-primary">Get Started</button>

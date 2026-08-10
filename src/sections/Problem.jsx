@@ -149,6 +149,10 @@ export default function Problem() {
               </span>
             ))}
           </div>
+
+          <div className="cta__actions">
+            <button type="button" className="btn btn-primary">Get Started</button>
+          </div>
         </div>
       </div>
     </section>

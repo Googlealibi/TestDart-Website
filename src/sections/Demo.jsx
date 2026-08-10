@@ -2,8 +2,6 @@ import useReveal from '../hooks/useReveal';
 import SectionHead from '../components/SectionHead';
 import './Demo.css';
 
-const SEQUENCE = ['Generate Test Cases', 'Approve', 'Execute', 'View Report'];
-
 export default function Demo() {
   const [ref, visible] = useReveal();
   return (
@@ -29,16 +27,10 @@ export default function Demo() {
               <span className="demo__caption">Demo video</span>
             </div>
           </div>
+        </div>
 
-          <div className="demo__sequence">
-            {SEQUENCE.map((step, i) => (
-              <div className="demo__seq-item" key={step}>
-                <span className="demo__seq-num">{i + 1}</span>
-                <span>{step}</span>
-                {i < SEQUENCE.length - 1 && <span className="demo__seq-arrow">→</span>}
-              </div>
-            ))}
-          </div>
+        <div className="cta__actions">
+          <button type="button" className="btn btn-primary">Get Started</button>
         </div>
       </div>
     </section>

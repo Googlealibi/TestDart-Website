@@ -12,14 +12,14 @@ import playIcon from '../assets/icons/play.svg';
 import './Features.css';
 
 const FEATURES = [
-  { icon: libraryIcon, title: 'Test Suite & Case Management', body: 'Organize test cases into suites and folders, with clone, move, and CSV import/export.' },
-  { icon: requirementsIcon, title: 'Requirements Management', body: 'Keep requirements linked to the suites and folders they drive.' },
-  { icon: testgenIcon, title: 'AI Test Case Generation', body: 'Generate structured test cases from a requirement, document, or Jira issue.' },
-  { icon: playIcon, title: 'Agentic Browser Execution', body: 'An agent runs approved test cases in a real browser, with live progress.' },
-  { icon: executionIcon, title: 'Execution Tracking & History', body: 'Track run status, bulk-update results, and comment on individual test cases.' },
-  { icon: reportsIcon, title: 'AI-Generated Test Reports', body: 'Turn execution results into a readable report with a pass/fail verdict.' },
-  { icon: historyIcon, title: 'Audit History', body: 'See what changed on a test case, requirement, or execution, and when.' },
-  { icon: adminIcon, title: 'Team & Organization Management', body: 'Invite teammates, assign roles, and manage access at the organization level.' },
+  { icon: libraryIcon, title: 'Keep Every Test Organized', body: 'Organize test cases into suites and folders, so your team always knows where every test lives.' },
+  { icon: requirementsIcon, title: 'Keep Requirements Connected', body: 'Requirements stay linked to the tests they drive, so nothing gets lost as your project grows.' },
+  { icon: testgenIcon, title: 'Turn Requirements Into Tests', body: 'Turn a requirement, document, or Jira issue into structured test cases, ready to run.' },
+  { icon: playIcon, title: 'Run Tests Without the Manual Work', body: 'TestDart runs your tests in a real browser and shows progress as it happens.' },
+  { icon: executionIcon, title: 'Know What Happened During Every Run', body: 'Track run status and results for every test, so your team always knows where things stand.' },
+  { icon: reportsIcon, title: 'Understand Results Faster', body: 'Execution results come back as a clear report, so your team can see what passed and what failed at a glance.' },
+  { icon: historyIcon, title: 'Always Know What Changed', body: 'See what changed on a requirement, test case, or execution, and when, so nothing happens without a trace.' },
+  { icon: adminIcon, title: 'Work Together With Your Team', body: 'Invite your team, assign roles, and manage access, so everyone works from the same project.' },
 ];
 
 const TILT_MAX_DEG = 2.5; // cursor-follow hover tilt ceiling — a highlight, not a pop-out
@@ -181,8 +181,8 @@ export default function Features() {
     <section className="section section--bg" id="features">
       <div className="container">
         <SectionHead>
-          <span className="eyebrow">Platform</span>
-          <h2>Everything around the testing workflow, in one place</h2>
+          <span className="eyebrow">WHAT TESTDART HELPS YOU DO</span>
+          <h2>Everything your QA team needs to move from requirement to release</h2>
         </SectionHead>
 
         <div
@@ -204,6 +204,10 @@ export default function Features() {
               <p>{f.body}</p>
             </div>
           ))}
+        </div>
+
+        <div className="cta__actions">
+          <button type="button" className="btn btn-primary">Get Started</button>
         </div>
       </div>
     </section>

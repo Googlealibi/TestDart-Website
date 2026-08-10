@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './Navbar.css';
 
 const LINKS = [
-  { label: 'Features', href: '#features' },
+  { label: 'Features', href: '#ai-generation' },
   { label: 'Pricing', href: '#pricing' },
   // Not wired to a page section yet — wire it up once Contact is implemented.
   { label: 'Contact', href: '#contact', pending: true },

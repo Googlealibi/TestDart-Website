@@ -55,8 +55,8 @@ export default function HowItWorks() {
       <div className="container">
         <SectionHead>
           <span className="eyebrow">How It Works</span>
-          <h2>From requirement to report, in one flow</h2>
-          <p>The same pipeline runs on demand or on a schedule — nothing here is a separate manual handoff.</p>
+          <h2>From Your Requirement to a Completed Test</h2>
+          <p>Run it whenever you need to, or set it on a schedule — every step stays connected, with nothing to hand off manually.</p>
         </SectionHead>
 
         <div ref={ref} className={`workflow ${visible ? 'is-visible' : ''}`}>
@@ -84,6 +84,10 @@ export default function HowItWorks() {
               );
             })}
           </div>
+        </div>
+
+        <div className="cta__actions">
+          <button type="button" className="btn btn-primary">Get Started</button>
         </div>
       </div>
     </section>

@@ -26,36 +26,39 @@ const RUN_STEPS = [
 const ROWS = [
   {
     eyebrow: 'AI Generation & Execution',
-    title: 'From requirement to running test, instantly',
-    body: "TestDart turns a requirement, document, or Jira issue into structured test cases, then hands them straight to an automation agent that runs them in a real browser — so nothing sits waiting between writing a test and watching it execute.",
+    title: 'From Requirement to Running Test, Without the Usual Back-and-Forth',
+    body: "Give TestDart a requirement, Jira issue, or project input and let it turn that context into structured test cases and move them toward execution. Keep test creation and execution connected instead of managing each step separately.",
     list: [
-      { Icon: DocumentIcon, text: 'Free text or a supported document as input' },
-      { Icon: ImportIcon, text: 'Jira issues imported directly as requirements' },
-      { Icon: BrowserIcon, text: 'Executed in a real browser, not a simulated one' },
-      { Icon: ActivityIcon, text: 'Live progress visible while a run is in flight' },
+      { Icon: DocumentIcon, text: 'Start with a requirement, Jira issue, or document' },
+      { Icon: ImportIcon, text: 'Turn your application context into structured test cases' },
+      { Icon: BrowserIcon, text: 'Run the generated tests in a real browser' },
+      { Icon: ActivityIcon, text: 'Follow test progress and results as execution happens' },
     ],
+    cta: { label: 'Get Started' },
   },
   {
-    eyebrow: 'Project Memory',
-    title: 'Unified memory of your project',
-    body: 'Every requirement, test case, execution, and report stays linked inside one connected project context. TestDart keeps track of how everything fits together, so new test cases build on your existing suites and history instead of starting from a blank page.',
+    eyebrow: 'Project Brain',
+    title: 'Unified Memory of Your Project',
+    body: "Upload your project documentation once, and TestDart stores it in your Project Brain. From there, every requirement you run can pull from that same context automatically, so you're not uploading or explaining your application over and over again.",
     list: [
-      { Icon: LinkIcon, text: 'Requirements, test cases, executions, and reports stay linked' },
-      { Icon: ClipboardIcon, text: 'Test suites and folders keep everything organized as the project grows' },
-      { Icon: ClockIcon, text: 'Full audit history tracks what changed, and when' },
-      { Icon: SparkleIcon, text: 'New test cases build on existing project context automatically' },
+      { Icon: LinkIcon, text: 'Upload your project documentation once to build your Project Brain' },
+      { Icon: ClipboardIcon, text: 'TestDart stores it and keeps it available for every requirement' },
+      { Icon: ClockIcon, text: "Each new requirement automatically pulls from what's already uploaded" },
+      { Icon: SparkleIcon, text: 'No need to upload or re-explain the same project details again' },
     ],
+    cta: { label: 'Get Started' },
   },
   {
     eyebrow: 'Self-Healing Execution',
     title: '100% self-healing. No code at all.',
-    body: "Test cases run without a single line of automation script. TestDart's browser agent interprets each step the way a person would, so when a button moves or a label changes, the run adapts instead of breaking — keeping your suite reliable without constant maintenance.",
+    body: "Applications change all the time — a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, TestDart is built to notice what changed and adjust the test so it can keep running. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
     list: [
-      { Icon: PlayIcon, text: 'No automation scripts to write or maintain' },
-      { Icon: SparkleIcon, text: 'Execution adapts automatically when the UI changes' },
-      { Icon: ClipboardIcon, text: 'Test cases stay written in plain, structured steps' },
-      { Icon: ClockIcon, text: 'Less time fixing broken tests, more time reading results' },
+      { Icon: PlayIcon, text: 'Reduce the need to write and maintain test scripts manually' },
+      { Icon: SparkleIcon, text: 'Move from test creation to execution without maintaining every step by hand' },
+      { Icon: ClipboardIcon, text: 'Adapt affected test steps when your application changes' },
+      { Icon: ClockIcon, text: 'Spend less time fixing tests and more time testing your application' },
     ],
+    cta: { label: 'Get Started' },
   },
 ];
 
@@ -91,7 +94,7 @@ function GenerationVisual() {
 function MemoryVisual() {
   return (
     <div className="capability-panel capability-panel--full">
-      <span className="capability-label">Project Memory</span>
+      <span className="capability-label">Project Brain</span>
       <div className="memory-mock">
         <svg className="memory-mock__wires" viewBox="0 0 200 160" preserveAspectRatio="none">
           <path d="M30 24 L100 80" />
@@ -151,6 +154,15 @@ function CapabilityRow({ row, Visual, reverse }) {
             </li>
           ))}
         </ul>
+        {row.cta && (
+          <div className="cta__actions" style={{ justifyContent: 'flex-start' }}>
+            {row.cta.href ? (
+              <a href={row.cta.href} className="btn btn-primary">{row.cta.label}</a>
+            ) : (
+              <button type="button" className="btn btn-primary">{row.cta.label}</button>
+            )}
+          </div>
+        )}
       </div>
 
       <div ref={ref} className={`capability-visual reveal ${visible ? 'is-visible' : ''}`}>

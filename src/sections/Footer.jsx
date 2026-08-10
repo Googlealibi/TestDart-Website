@@ -2,6 +2,8 @@ import logoMark from '../assets/logo-mark.svg';
 import { CONTACT_EMAIL } from '../config/links';
 import './Footer.css';
 
+const PLACEHOLDER_EMAIL = 'info@provassure.com';
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -12,16 +14,14 @@ export default function Footer() {
             <img src={logoMark} alt="TestDart" />
             <span>TestDart</span>
           </div>
-          <p>Requirements to test reports, with AI assistance.</p>
+          <p>From requirements to tested software, all in one workflow.</p>
         </div>
 
         <div className="footer__col">
-          <h4>Product</h4>
-          <a href="#features">Product</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="#ai-generation">AI Testing</a>
-          <a href="#demo">Demo</a>
+          <h4>Explore</h4>
+          <a href="#ai-generation">Features</a>
           <a href="#pricing">Pricing</a>
+          <a href="#demo">Demo</a>
           <a href="#faq">FAQ</a>
         </div>
 
@@ -34,13 +34,28 @@ export default function Footer() {
 
         <div className="footer__col">
           <h4>Legal</h4>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms &amp; Conditions</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+
+        <div className="footer__col footer__col--contact">
+          <h4>Contact</h4>
+          <div className="footer__contact-item">
+            <span className="footer__contact-label">Email</span>
+            <a href={`mailto:${PLACEHOLDER_EMAIL}`}>{PLACEHOLDER_EMAIL}</a>
+          </div>
+          <div className="footer__contact-item">
+            <span className="footer__contact-label">Phone</span>
+            <span>[Contact number to be added]</span>
+          </div>
+          <div className="footer__contact-item">
+            <span className="footer__contact-label">Address</span>
+            <span>[Company address to be added]</span>
+          </div>
         </div>
       </div>
 
       <div className="container footer__bottom">
-        <span>{year} © TestDart. All rights reserved.</span>
+        <span>© {year} TestDart. All rights reserved.</span>
       </div>
     </footer>
   );

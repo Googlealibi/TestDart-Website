@@ -3,7 +3,7 @@ import SectionDivider from './components/SectionDivider';
 import Navbar from './sections/Navbar';
 import Hero from './sections/Hero';
 import Metrics from './sections/Metrics';
-import Problem from './sections/Problem';
+// import Problem from './sections/Problem'; // "Where QA Gets Stuck" — hidden from the page, keep code for later
 import Solution from './sections/Solution';
 import HowItWorks from './sections/HowItWorks';
 import Capabilities from './sections/Capabilities';
@@ -25,9 +25,7 @@ function App() {
       <SectionDivider />
       <Metrics />
       <SectionDivider />
-      {/* Where QA Gets Stuck — kept in code, hidden from the page for now. */}
       {/* <Problem /> */}
-      {/* <SectionDivider /> */}
       <Solution />
       <SectionDivider />
       <HowItWorks />
