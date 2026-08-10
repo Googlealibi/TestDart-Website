@@ -1,14 +1,13 @@
-import { Fragment } from 'react';
 import HeroPipeline from '../components/HeroPipeline';
 import MaskReveal from '../components/MaskReveal';
 import useReveal from '../hooks/useReveal';
-import { SparkleIcon, BrowserIcon, ReportIcon } from '../components/LineIcons';
+import { StarIcon } from '../components/LineIcons';
 import './Hero.css';
 
 const TRUST_ITEMS = [
-  { Icon: SparkleIcon, label: 'AI-generated test cases' },
-  { Icon: BrowserIcon, label: 'Real browser execution' },
-  { Icon: ReportIcon, label: 'AI-written reports' },
+  { Icon: StarIcon, label: 'No Credit Card' },
+  { Icon: StarIcon, label: '14-Day Free Trial' },
+  { Icon: StarIcon, label: 'Quick Setup' },
 ];
 
 export default function Hero() {
@@ -31,14 +30,11 @@ export default function Hero() {
             <a href="#demo" className="btn btn-secondary">Watch Demo</a>
           </div>
           <div className="hero__trust">
-            {TRUST_ITEMS.map(({ Icon, label }, i) => (
-              <Fragment key={label}>
-                <span className="hero__trust-item">
-                  <span className="hero__trust-icon"><Icon /></span>
-                  {label}
-                </span>
-                {i < TRUST_ITEMS.length - 1 && <span className="dot" />}
-              </Fragment>
+            {TRUST_ITEMS.map(({ Icon, label }) => (
+              <span className="hero__trust-item" key={label}>
+                <span className="hero__trust-icon"><Icon /></span>
+                {label}
+              </span>
             ))}
           </div>
         </div>

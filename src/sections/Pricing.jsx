@@ -1,6 +1,16 @@
 import { CONTACT_EMAIL } from '../config/links';
 import SectionHead from '../components/SectionHead';
+import { HeadsetIcon, CheckIcon } from '../components/LineIcons';
 import './Pricing.css';
+
+const ENTERPRISE_FEATURES = [
+  'Unlimited team members and organizations',
+  'Reduced cost per seat as your team scales',
+  'Priority support with a dedicated contact',
+  'Advanced audit history and access controls',
+  'Guided onboarding for your QA workflow',
+  'Early access to new AI testing capabilities',
+];
 
 export default function Pricing() {
   return (
@@ -12,15 +22,47 @@ export default function Pricing() {
           <p>Choose the setup that fits your team's testing needs. Talk to us to learn about TestDart plans and availability.</p>
         </SectionHead>
 
-        <div className="pricing-panel card tilt-card">
-          <div className="pricing-panel__icon">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-              <path d="M9.5 3H4a1 1 0 0 0-1 1v5.5a1 1 0 0 0 .3.7l8 8a1 1 0 0 0 1.4 0l6-6a1 1 0 0 0 0-1.4l-8-8a1 1 0 0 0-.7-.3Z" stroke="white" strokeWidth="1.4" strokeLinejoin="round" />
-              <circle cx="7" cy="7" r="1.1" fill="white" />
-            </svg>
+        <div className="pricing-grid pricing-grid--single">
+          <div className="pricing-enterprise card">
+            <h3>Enterprise</h3>
+            <p className="pricing-enterprise__subtitle">Built for QA organizations running testing at scale.</p>
+            <span className="pricing-enterprise__badge">Full platform access</span>
+
+            <p className="pricing-enterprise__statement">
+              Volume-based pricing that lowers your cost per seat as your team grows.
+            </p>
+
+            <div className="pricing-enterprise__inquire">
+              <HeadsetIcon />
+              Inquire for pricing
+            </div>
+
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=TestDart%20Enterprise`}
+              className="btn btn-primary pricing-enterprise__cta"
+            >
+              Contact Sales
+            </a>
+
+            <div className="pricing-enterprise__divider" />
+
+            <h4>What's included:</h4>
+            <ul className="pricing-enterprise__list">
+              {ENTERPRISE_FEATURES.map((text) => (
+                <li key={text}>
+                  <CheckIcon />
+                  {text}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=TestDart%20Plan%20Comparison`}
+              className="pricing-enterprise__compare"
+            >
+              Talk to us for a detailed comparison
+            </a>
           </div>
-          <h3>Custom to your team</h3>
-          <a href={`mailto:${CONTACT_EMAIL}?subject=TestDart%20Pricing`} className="btn btn-primary">Talk to us</a>
         </div>
       </div>
     </section>

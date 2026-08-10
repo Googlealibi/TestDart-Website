@@ -14,33 +14,112 @@
   }
 }
 
-.pricing-panel {
-  max-width: 480px;
+.pricing-grid {
+  display: grid;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 44px 40px;
-  text-align: center;
 }
 
-.pricing-panel__icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 18px;
-  border-radius: 12px;
-  background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.pricing-grid--single {
+  grid-template-columns: 1fr;
+  max-width: 480px;
 }
 
-.pricing-panel h3 {
-  font-size: 17px;
+/* ---- enterprise / volume plan card ---- */
+.pricing-enterprise { padding: 36px 32px; }
+
+.pricing-enterprise h3 {
+  font-size: 20px;
   font-weight: 700;
   color: var(--slate-900);
-  margin-bottom: 22px;
+}
+.pricing-enterprise__subtitle {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--slate-600);
 }
 
-.pricing-panel .btn { height: 46px; padding: 0 28px; font-size: 15px; }
+.pricing-enterprise__badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pricing-enterprise__statement {
+  margin-top: 18px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--slate-900);
+}
+
+.pricing-enterprise__inquire {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+.pricing-enterprise__inquire svg { width: 17px; height: 17px; color: var(--slate-500); }
+
+.pricing-enterprise__cta { width: 100%; margin-top: 16px; height: 46px; font-size: 15px; }
+
+.pricing-enterprise__divider {
+  margin: 28px 0 22px;
+  border-top: 1px solid var(--slate-200);
+}
+
+.pricing-enterprise h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.pricing-enterprise__list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pricing-enterprise__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--slate-700);
+}
+.pricing-enterprise__list svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  color: var(--green);
+}
+
+.pricing-enterprise__compare {
+  display: block;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--slate-200);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--green-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.pricing-enterprise__compare:hover { color: var(--green); }
 
 @media (max-width: 560px) {
-  .pricing-panel { padding: 36px 24px; }
+  .pricing-enterprise { padding: 30px 24px; }
 }

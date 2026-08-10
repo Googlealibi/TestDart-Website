@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import logoMark from '../assets/logo-mark.svg';
 import './Navbar.css';
 
 const LINKS = [
-  { label: 'Product', href: '#features' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'AI Testing', href: '#ai-generation' },
-  { label: 'Demo', href: '#demo' },
+  { label: 'Features', href: '#features' },
   { label: 'Pricing', href: '#pricing' },
+  // Not wired to a page section yet — wire it up once Contact is implemented.
+  { label: 'Contact', href: '#contact', pending: true },
 ];
 
 export default function Navbar() {
@@ -20,23 +18,31 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const handleLinkClick = (e, link) => {
+    if (link.pending) e.preventDefault();
+    setMenuOpen(false);
+  };
+
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
         <a href="#top" className="navbar__brand">
-          <img src={logoMark} alt="TestDart" className="navbar__mark" />
           <span>TestDart</span>
         </a>
 
-        <nav className="navbar__links">
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href}>{link.label}</a>
-          ))}
-        </nav>
+        <div className="navbar__right">
+          <nav className="navbar__links">
+            {LINKS.map((link) => (
+              <a key={link.label} href={link.href} onClick={(e) => handleLinkClick(e, link)}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-        <div className="navbar__cta">
-          <button type="button" className="navbar__login">Log In</button>
-          <button type="button" className="btn btn-primary">Get Started</button>
+          <div className="navbar__cta">
+            <button type="button" className="navbar__login">Log In</button>
+            <button type="button" className="btn btn-primary">Get Started</button>
+          </div>
         </div>
 
         <button
@@ -51,7 +57,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="navbar__mobile">
           {LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
+            <a key={link.label} href={link.href} onClick={(e) => handleLinkClick(e, link)}>
               {link.label}
             </a>
           ))}

@@ -2,10 +2,11 @@ import SiteBackground from './components/SiteBackground';
 import SectionDivider from './components/SectionDivider';
 import Navbar from './sections/Navbar';
 import Hero from './sections/Hero';
+import Metrics from './sections/Metrics';
 import Problem from './sections/Problem';
+import Solution from './sections/Solution';
 import HowItWorks from './sections/HowItWorks';
-import AIGeneration from './sections/AIGeneration';
-import AIExecution from './sections/AIExecution';
+import Capabilities from './sections/Capabilities';
 import Demo from './sections/Demo';
 import Features from './sections/Features';
 import Pricing from './sections/Pricing';
@@ -20,15 +21,18 @@ function App() {
       <Navbar />
       <Hero />
       <SectionDivider />
-      <Problem />
+      <Demo />
+      <SectionDivider />
+      <Metrics />
+      <SectionDivider />
+      {/* Where QA Gets Stuck — kept in code, hidden from the page for now. */}
+      {/* <Problem /> */}
+      {/* <SectionDivider /> */}
+      <Solution />
       <SectionDivider />
       <HowItWorks />
       <SectionDivider />
-      <AIGeneration />
-      <SectionDivider />
-      <AIExecution />
-      <SectionDivider />
-      <Demo />
+      <Capabilities />
       <SectionDivider />
       <Features />
       <SectionDivider />

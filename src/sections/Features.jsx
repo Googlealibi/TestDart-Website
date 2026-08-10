@@ -18,7 +18,6 @@ const FEATURES = [
   { icon: playIcon, title: 'Agentic Browser Execution', body: 'An agent runs approved test cases in a real browser, with live progress.' },
   { icon: executionIcon, title: 'Execution Tracking & History', body: 'Track run status, bulk-update results, and comment on individual test cases.' },
   { icon: reportsIcon, title: 'AI-Generated Test Reports', body: 'Turn execution results into a readable report with a pass/fail verdict.' },
-  { badge: 'Jira', title: 'Jira Integration', body: 'Connect Jira and import an issue directly into TestDart as a requirement.' },
   { icon: historyIcon, title: 'Audit History', body: 'See what changed on a test case, requirement, or execution, and when.' },
   { icon: adminIcon, title: 'Team & Organization Management', body: 'Invite teammates, assign roles, and manage access at the organization level.' },
 ];
@@ -200,11 +199,7 @@ export default function Features() {
               onMouseMove={(e) => handleCardMouseMove(e, f.title)}
               onMouseLeave={() => handleCardMouseLeave(f.title)}
             >
-              {f.badge ? (
-                <div className="feature-card__icon feature-card__icon--jira">{f.badge}</div>
-              ) : (
-                <div className="feature-card__icon"><img src={f.icon} alt="" /></div>
-              )}
+              <div className="feature-card__icon"><img src={f.icon} alt="" /></div>
               <h3>{f.title}</h3>
               <p>{f.body}</p>
             </div>

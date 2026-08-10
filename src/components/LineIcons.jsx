@@ -9,6 +9,14 @@ const iconProps = {
   strokeLinejoin: 'round',
 };
 
+export function StarIcon() {
+  return (
+    <svg {...iconProps} fill="currentColor" stroke="none">
+      <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5z" />
+    </svg>
+  );
+}
+
 export function SparkleIcon() {
   return (
     <svg {...iconProps}>
@@ -122,6 +130,25 @@ export function PlayIcon() {
   return (
     <svg {...iconProps}>
       <path d="M8 5.5v13l11-6.5-11-6.5z" />
+    </svg>
+  );
+}
+
+export function CheckIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M5 12.5l4.5 4.5L19 7" />
+    </svg>
+  );
+}
+
+export function HeadsetIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M4 13v-1a8 8 0 0 1 16 0v1" />
+      <rect x="3" y="13" width="4" height="6" rx="1.5" />
+      <rect x="17" y="13" width="4" height="6" rx="1.5" />
+      <path d="M20 19v1a3 3 0 0 1-3 3h-3" />
     </svg>
   );
 }
