@@ -28,11 +28,11 @@ function App() {
       {/* <Problem /> */}
       <Solution />
       <SectionDivider />
+      <Features />
+      <SectionDivider />
       <HowItWorks />
       <SectionDivider />
       <Capabilities />
-      <SectionDivider />
-      <Features />
       <SectionDivider />
       <Pricing />
       <SectionDivider />

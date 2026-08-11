@@ -50,8 +50,8 @@ export default function Features() {
       <div className="container">
         <SectionHead>
          
-          <span className="eyebrow">WHAT TESTDART HELPS YOU DO</span>
-          <h2>Everything your QA team needs to move from requirement to release</h2>
+          <span className="eyebrow">WHAT'S INCLUDED</span>
+          <h2>One place to organize, generate, run, and understand every test your team writes</h2>
         </SectionHead>
 
         <ul ref={ref} className={`expand-grid ${visible ? 'is-visible' : ''}`} style={gridStyle}>
