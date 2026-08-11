@@ -26,19 +26,22 @@
   stroke-dasharray: 1 9;
 }
 
-/* The traveled portion of the line — no moving ball, just the path
-   itself lighting up as the active step advances. pathLength="1" makes
-   0..1 line up exactly with 0%..100% progress regardless of the curve's
-   actual geometry. */
+/* A short bold segment travels the whole path on its own, continuously —
+   not tied to scroll at all. dash + gap add up to exactly 1 (matching
+   pathLength="1"), so animating dashoffset from 1 to 0 loops seamlessly. */
 .hiw-journey__path-glow {
   fill: none;
   stroke: var(--green);
   stroke-width: 2.5;
   stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dasharray: 0.14 0.86;
   filter: drop-shadow(0 0 3px rgba(55, 134, 53, 0.55));
-  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: hiwPathTravel 3.6s linear infinite;
+}
+
+@keyframes hiwPathTravel {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
 }
 
 .hiw-journey__waypoint {
@@ -73,8 +76,7 @@
   box-shadow: var(--shadow-sm);
   padding: 22px;
   transform: scale(0.92);
-  opacity: 0.7;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease,
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .hiw-journey__row.is-left .hiw-journey__card { transform: scale(0.92) rotate(-1.5deg); }
@@ -82,7 +84,6 @@
 
 .hiw-journey__card.is-active {
   transform: scale(1) rotate(0deg);
-  opacity: 1;
   border-color: rgba(55, 134, 53, 0.45);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
 }
@@ -137,12 +138,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hiw-journey__card,
-  .hiw-journey__waypoint,
-  .hiw-journey__path-glow {
+  .hiw-journey__waypoint {
     transition: none !important;
   }
-  .hiw-journey__card { transform: none !important; opacity: 1; }
+  .hiw-journey__card { transform: none !important; }
   .hiw-journey__card.is-active { transform: none !important; }
+  .hiw-journey__path-glow { animation: none !important; stroke-dashoffset: 1; }
 }
 
 @media (max-width: 900px) {

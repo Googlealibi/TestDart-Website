@@ -196,7 +196,9 @@ export default function HowItWorks() {
   // extra height and nothing is pinned/sticky, so this never holds the
   // page hostage — it only reads normal scroll position (rAF-throttled,
   // gated to while the section is actually on screen) to decide which
-  // step is active and how far the path's glow has filled in.
+  // step is active. The path's glow segment is a separate, purely CSS
+  // animation loop (see .hiw-journey__path-glow) — it just keeps moving
+  // on its own, independent of scroll.
   useEffect(() => {
     const el = journeyRef.current;
     if (!el) return undefined;
@@ -233,8 +235,6 @@ export default function HowItWorks() {
     };
   }, []);
 
-  const progressFraction = activeIndex / (NODES.length - 1);
-
   return (
     <section className="section section--bg" id="how-it-works">
       <div className="container">
@@ -250,16 +250,15 @@ export default function HowItWorks() {
         <div ref={journeyRef} className="hiw-journey">
           <svg className="hiw-journey__path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <path d={PATH_D} className="hiw-journey__path-line" vectorEffect="non-scaling-stroke" />
-            {/* Mild glow that fills in along the line as you move through
-                the steps — pathLength="1" makes the dash math trivial
-                (0 = nothing traveled yet, 1 = reached the end), so there's
-                no ball to look like it's moving on its own. */}
+            {/* A short bold segment travels the path on its own continuous
+                loop (pure CSS animation) — not tied to scroll position, it
+                just keeps moving. pathLength="1" keeps the dash math in
+                0..1 regardless of the curve's actual geometry. */}
             <path
               d={PATH_D}
               className="hiw-journey__path-glow"
               vectorEffect="non-scaling-stroke"
               pathLength="1"
-              style={{ strokeDashoffset: 1 - progressFraction }}
             />
           </svg>
 
