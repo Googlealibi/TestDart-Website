@@ -3,10 +3,10 @@ import SectionHead from '../components/SectionHead';
 import './Metrics.css';
 
 const STATS = [
-  { value: '10×', label: 'Turn requirements into test cases in a fraction of the usual effort.' },
-  { value: '98%', label: 'Reduce the repetitive work that slows your team down before every release.' },
-  { value: 'Real-time', label: 'See your testing progress as it happens and stay informed without chasing updates.' },
-  { value: 'End-to-end', label: 'Keep the journey from requirement to final test result connected in one workflow.' },
+  { value: '10×', label: 'Turn requirements into test cases 10x faster than doing it by hand.' },
+  { value: '98%', label: 'Cut up to 98% of the repetitive work that slows your team down before every release.' },
+  { value: 'Real-time', label: 'Watch your tests run in real time, no chasing updates.' },
+  { value: 'End-to-end', label: 'Stay connected end-to-end, from requirement to final result.' },
 ];
 
 export default function Metrics() {
@@ -16,7 +16,7 @@ export default function Metrics() {
       <div className="container">
         <SectionHead className="section-head--center section-head--tight">
           <span className="eyebrow">WHAT YOUR TEAM CAN EXPECT</span>
-          <h2>Cut the time testing takes, so releases go out sooner.</h2>
+          <h2>We'll help you cut down the time testing takes, so your releases go out sooner.</h2>
           <p>When testing starts slowing down your release, TestDart helps your team move faster. Bring your requirements in, turn them into structured tests, and keep the work connected without the usual back-and-forth.</p>
         </SectionHead>
 

@@ -16,7 +16,7 @@ export default function Hero() {
     <section className="hero" id="top">
       <div className="container hero__grid">
         <div ref={ref} className={`hero__copy ${visible ? 'is-visible' : ''}`}>
-          <span className="eyebrow">For QA & Engineering Teams</span>
+          {/* <span className="eyebrow">For QA & Engineering Teams</span> */}
           <h1>
             <MaskReveal text="Testing taking too long, right before your release?" />{' '}
             <MaskReveal text="Move from requirement to tested results, without the last-minute rush." className="hero__highlight" />

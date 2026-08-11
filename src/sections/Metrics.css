@@ -1,11 +1,3 @@
-/* Compact bridge between Hero and Problem — smaller heading and tighter
-   padding than a full section so it reads as a quick beat, not a new
-   chapter. */
-.metrics-section { padding-top: 72px; padding-bottom: 72px; }
-@media (max-width: 900px) {
-  .metrics-section { padding-top: 56px; padding-bottom: 56px; }
-}
-
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

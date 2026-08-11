@@ -1,0 +1,14 @@
+/* No position rule here on purpose — every card that uses Spotlight
+   already sets its own (relative, sticky, ...); forcing one here risks
+   a cascade-order fight that silently breaks a sticky card's stacking. */
+.spotlight__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight__glow { display: none; }
+}

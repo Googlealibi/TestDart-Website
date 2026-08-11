@@ -1,181 +1,90 @@
-/* ---- central workflow rail ---- */
-.solution-flow { margin-top: 12px; }
-
-.solution-flow__rail {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  max-width: 680px;
-  margin: 0 auto 56px;
-  padding: 0 6px;
-}
-
-.solution-flow__line {
-  position: absolute;
-  top: 5px;
-  left: 5%;
-  right: 5%;
-  height: 2px;
-  background: var(--slate-300);
-  overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.12);
-}
-.solution-flow__line-fill {
-  position: absolute;
-  inset: 0;
-  width: 0%;
-  background: var(--green);
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.solution-flow__stage {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-}
-
-.solution-flow__dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 2px solid var(--slate-300);
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-.solution-flow__stage.is-passed .solution-flow__dot {
-  background: var(--green);
-  border-color: var(--green);
-}
-.solution-flow__stage.is-active .solution-flow__dot {
-  transform: scale(1.35);
-  box-shadow: 0 0 0 6px rgba(55, 134, 53, 0.18);
-}
-
-.solution-flow__stage-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--slate-500);
-  white-space: nowrap;
-  transition: color 0.3s ease;
-}
-.solution-flow__stage.is-passed .solution-flow__stage-label { color: var(--slate-700); }
-.solution-flow__stage.is-active .solution-flow__stage-label { color: var(--green-dark); }
-
-/* ---- four reasons, staggered instead of a flat grid ---- */
-.solution-flow__reasons {
+/* Sticky card-stack, same mechanic as How It Works' — left column pins
+   while the right column's cards stack on scroll, each a `position:
+   sticky` list item offset a few px below the last. */
+.reason-layout {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
   align-items: start;
-  gap: 22px 20px;
-}
-.solution-flow__reasons > :nth-child(2),
-.solution-flow__reasons > :nth-child(4) {
-  margin-top: 34px;
 }
 
-.solution-reason {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 24px 20px;
-  background: var(--white);
-  border: 1.5px solid var(--slate-300);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  cursor: default;
-  outline: none;
+.reason-intro {
+  position: sticky;
+  top: 112px;
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.5s ease var(--delay, 0ms), transform 0.3s ease,
-    box-shadow 0.3s ease, border-color 0.3s ease;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.solution-flow.is-visible .solution-reason {
+.reason-intro.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-.solution-reason.is-active {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.2);
-  border-color: rgba(55, 134, 53, 0.4);
+
+.reason-intro__cta { justify-content: flex-start; }
+
+.reason-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.solution-reason__connector {
-  position: absolute;
-  top: -26px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 20px;
-  background: var(--slate-300);
-  opacity: 0.5;
-  transition: background 0.3s ease, opacity 0.3s ease, height 0.3s ease;
+/* Cards size to their own content (a short reason stays short, a longer
+   one grows) instead of a forced uniform height — the min-height is only
+   a shared floor so a short card never looks stunted next to a tall one.
+   Padding, border, radius, and type scale stay identical across all four
+   so they still read as one consistent set. */
+.reason-card {
+  position: sticky;
+  min-height: 200px;
+  margin-bottom: 24px;
+  padding: 30px 32px;
+  background: var(--white);
+  border: 1.5px solid var(--slate-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  backface-visibility: hidden;
 }
-.solution-reason.is-active .solution-reason__connector {
-  background: var(--green);
-  opacity: 1;
-  height: 26px;
-}
+.reason-card:last-child { margin-bottom: 0; }
 
-.solution-reason__index {
-  font-size: 12px;
+.reason-card__index {
+  display: block;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--green-dark);
-  margin-bottom: 10px;
 }
 
-.solution-reason h3 {
-  font-size: 15.5px;
+.reason-card h3 {
+  margin-top: 14px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.3;
 }
-.solution-reason p {
-  margin-top: 8px;
-  font-size: 13.5px;
-  line-height: 1.6;
+
+.reason-card p {
+  margin-top: 10px;
+  font-size: 14.5px;
+  line-height: 1.65;
   color: var(--slate-600);
 }
 
-.solution-reason__outcome {
-  margin-top: 16px;
-  padding-top: 12px;
+.reason-card__outcome {
+  display: block;
+  margin-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid var(--slate-200);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--green-dark);
   line-height: 1.5;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .solution-reason { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .solution-reason.is-active { transform: none !important; }
-  .solution-flow__dot { transition: none !important; }
+  .reason-intro { transition: none !important; opacity: 1; transform: none; }
 }
 
-@media (max-width: 980px) {
-  .solution-flow__reasons { grid-template-columns: repeat(2, 1fr); }
-  .solution-flow__reasons > :nth-child(2) { margin-top: 0; }
-  .solution-flow__reasons > :nth-child(3) { margin-top: 34px; }
-}
-
-@media (max-width: 640px) {
-  .solution-flow__rail {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-  .solution-flow__stage { flex: 0 0 auto; min-width: 76px; }
-  .solution-flow__line { left: 38px; right: 38px; }
-
-  .solution-flow__reasons { grid-template-columns: 1fr; }
-  .solution-flow__reasons > :nth-child(2),
-  .solution-flow__reasons > :nth-child(3),
-  .solution-flow__reasons > :nth-child(4) {
-    margin-top: 0;
-  }
-  .solution-reason.is-active { transform: translateY(-3px); }
+@media (max-width: 900px) {
+  .reason-layout { grid-template-columns: 1fr; gap: 28px; }
+  .reason-intro { position: static; }
+  .reason-card { min-height: 0; padding: 26px; }
 }

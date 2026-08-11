@@ -9,7 +9,7 @@ export default function Demo() {
       <div className="container">
         <SectionHead className="section-head--center">
           <span className="eyebrow">Product Demo</span>
-          <h2>See the full workflow, start to finish</h2>
+          <h2>Here's how your testing comes together, from requirement to Testing report</h2>
           <p>Generate test cases, approve them, watch the run, and open the report — one continuous flow.</p>
         </SectionHead>
 

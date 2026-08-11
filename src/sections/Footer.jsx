@@ -1,4 +1,3 @@
-import logoMark from '../assets/logo-mark.svg';
 import { CONTACT_EMAIL } from '../config/links';
 import './Footer.css';
 
@@ -11,8 +10,8 @@ export default function Footer() {
       <div className="container footer__inner">
         <div className="footer__brand">
           <div className="footer__brand-row">
-            <img src={logoMark} alt="TestDart" />
-            <span>TestDart</span>
+            <img src="/logo-mark.png" alt="testdart" />
+            <span>testdart</span>
           </div>
           <p>From requirements to tested software, all in one workflow.</p>
         </div>

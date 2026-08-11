@@ -1,90 +1,134 @@
-/* Features and Pricing sit back to back with matched section padding
-   (112px each = 224px of flat background between the last card row and
-   the Pricing heading, with nothing to break it up) — trim just this
-   seam rather than the shared --section-pad every section relies on. */
-#features { padding-bottom: 64px; }
-@media (max-width: 980px) {
-  #features { padding-bottom: 48px; }
-}
-
-.features-grid {
+/* Expanding-cards row: every <li> holds an equal 1fr share; Features.jsx
+   writes the active card's share up to 5fr inline (columns on desktop,
+   rows on mobile) — this file only owns the transition and the card's
+   own visual states, not the track sizing itself. */
+.expand-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 10px;
   margin-top: 22px;
-}
-
-/* Card shell matches every other section (.problem-card, .workflow__step):
-   white surface, hairline border, soft shadow. Entrance is a plain fade +
-   rise, staggered by --delay (set inline per card in Features.jsx). Once
-   settled, Features.jsx's idle loop takes the transform over for a per-card
-   sinusoidal float + rotateZ sway, handed off to a cursor-follow 3D tilt on
-   hover — nothing here fights that JS for the same property. */
-.feature-card {
-  position: relative;
-  padding: 26px;
-  background: var(--white);
-  border: 1.5px solid var(--slate-300);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm), 0 14px 28px -22px rgba(15, 23, 42, 0.35);
+  height: 460px;
+  transition: grid-template-columns 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0ms),
-    box-shadow 0.25s ease, border-color 0.25s ease;
-  will-change: transform;
+  transform: translateY(16px);
 }
-.features-grid.is-visible .feature-card {
+.expand-grid.is-visible {
   opacity: 1;
   transform: translateY(0);
+  transition: grid-template-columns 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s ease, transform 0.6s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .feature-card { opacity: 1; transform: none; }
+.expand-card {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  background: linear-gradient(165deg, var(--white) 0%, var(--green-light) 85%);
+  border: 1.5px solid var(--slate-200);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
-
-/* Hover — cursor-follow 3D tilt (Features.jsx's mousemove handler writes
-   the precise rotateX/rotateY; this is the fast, delay-free transition
-   that makes the live tracking itself feel responsive). */
-.feature-card:hover {
-  transition: transform 0.15s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
-  transform: perspective(1200px) translateY(-2px) scale(1.008);
+/* Top accent bar — real, visible color at rest, not just a faint tint,
+   so the collapsed strip doesn't read as bare. The hover glow itself
+   comes from the Spotlight wrapper (.spotlight__glow), not a pseudo
+   here. */
+.expand-card::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green) 0%, var(--green-dark) 100%);
+}
+.expand-card[data-active='true'] {
+  background: linear-gradient(165deg, var(--white) 0%, var(--green-light) 100%);
+  border-color: rgba(55, 134, 53, 0.4);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
-  border-color: rgba(55, 134, 53, 0.35);
 }
 
-.feature-card__icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  background: linear-gradient(160deg, var(--green) 0%, var(--green-dark) 100%);
+/* Large low-opacity icon tucked in the corner — gives each card its own
+   identity at rest without competing with the centered text on top of it. */
+.expand-card__watermark {
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  color: var(--green);
+  opacity: 0.16;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.expand-card__watermark svg { width: 96px; height: 96px; stroke-width: 1.2; }
+.expand-card[data-active='true'] .expand-card__watermark {
+  opacity: 0.22;
+  transform: scale(1.08);
+}
+
+.expand-card__collapsed {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  transition: transform 0.3s ease;
+  transition: opacity 0.2s ease;
 }
-.feature-card:hover .feature-card__icon { transform: rotate(-4deg) scale(1.08); }
-.feature-card__icon img { width: 20px; height: 20px; }
+.expand-card[data-active='true'] .expand-card__collapsed { opacity: 0; }
 
-.feature-card h3 { font-size: 15.5px; font-weight: 700; }
-.feature-card p { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--slate-600); }
+.expand-card__collapsed .expand-card__label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--slate-700);
+  white-space: nowrap;
+}
+
+.expand-card__body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 26px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.expand-card[data-active='true'] .expand-card__body { opacity: 1; }
+
+.expand-card__body h3 {
+  color: var(--slate-900);
+  font-size: 16.5px;
+  font-weight: 700;
+  transform: translateY(6px);
+  opacity: 0;
+  transition: transform 0.3s ease 0.1s, opacity 0.3s ease 0.1s;
+}
+.expand-card[data-active='true'] .expand-card__body h3 { transform: translateY(0); opacity: 1; }
+
+.expand-card__body p {
+  max-width: 340px;
+  color: var(--slate-600);
+  font-size: 13.5px;
+  line-height: 1.6;
+  transform: translateY(6px);
+  opacity: 0;
+  transition: transform 0.3s ease 0.16s, opacity 0.3s ease 0.16s;
+}
+.expand-card[data-active='true'] .expand-card__body p { transform: translateY(0); opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .feature-card { animation: none !important; }
-  .feature-card:hover {
-    transform: none !important;
-    box-shadow: var(--shadow-md) !important;
-  }
+  .expand-grid, .expand-card, .expand-card * { transition: none !important; }
+  .expand-grid { opacity: 1; transform: none; }
 }
 
-@media (max-width: 980px) {
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 700px) {
-  .features-grid { grid-template-columns: 1fr; }
-  .feature-card:hover {
-    transform: translateY(-2px);
-  }
+@media (max-width: 767px) {
+  .expand-grid { height: 620px; gap: 8px; }
+  .expand-card__collapsed .expand-card__label { display: none; }
+  .expand-card__body { padding: 20px; }
+  .expand-card__body p { max-width: none; }
+  .expand-card__watermark svg { width: 64px; height: 64px; }
 }

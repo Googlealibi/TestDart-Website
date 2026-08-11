@@ -1,4 +1,3 @@
-import logoMark from '../assets/logo-mark.svg';
 import { CheckIcon } from '../components/LineIcons';
 import './PrivacyPolicy.css';
 
@@ -35,8 +34,8 @@ export default function PrivacyPolicy() {
       <header className="privacy-header">
         <div className="container privacy-header__inner">
           <a href="/" className="privacy-header__brand">
-            <img src={logoMark} alt="TestDart" />
-            <span>TestDart</span>
+            <img src="/logo-mark.png" alt="testdart" />
+            <span>testdart</span>
           </a>
           <a href="/" className="privacy-header__back">← Back to TestDart</a>
         </div>
