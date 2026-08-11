@@ -1,6 +1,6 @@
 .dart-stage {
   position: relative;
-  height: 480px;
+  height: 560px;
   perspective: 1200px;
   --rx: 0deg;
   --ry: 0deg;
@@ -24,9 +24,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 340px;
-  height: 340px;
-  margin: -170px 0 0 -170px;
+  width: 400px;
+  height: 400px;
+  margin: -200px 0 0 -200px;
   transform-style: preserve-3d;
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform 0.15s ease-out;

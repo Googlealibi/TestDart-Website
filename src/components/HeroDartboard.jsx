@@ -7,10 +7,10 @@ import './HeroDartboard.css';
 // so moving the cursor reads as tilting a real layered object rather
 // than a flat picture.
 const RINGS = [
-  { id: 'requirement', label: 'Requirements', word: 'Plan', radius: 84, speed: 22, dir: 1 },
-  { id: 'generate', label: 'Test Generation', word: 'Generate', radius: 128, speed: 30, dir: -1 },
-  { id: 'execute', label: 'Browser Execution', word: 'Execute', radius: 172, speed: 38, dir: 1 },
-  { id: 'report', label: 'Reporting', word: 'Ship', radius: 216, speed: 46, dir: -1 },
+  { id: 'requirement', label: 'Requirements', word: 'Plan', radius: 98, speed: 22, dir: 1 },
+  { id: 'generate', label: 'Test Generation', word: 'Generate', radius: 150, speed: 30, dir: -1 },
+  { id: 'execute', label: 'Browser Execution', word: 'Execute', radius: 202, speed: 38, dir: 1 },
+  { id: 'report', label: 'Reporting', word: 'Ship', radius: 254, speed: 46, dir: -1 },
 ];
 
 export default function HeroDartboard() {
