@@ -1,4 +1,4 @@
-import HeroPipeline from '../components/HeroPipeline';
+import HeroDartboard from '../components/HeroDartboard';
 import MaskReveal from '../components/MaskReveal';
 import useReveal from '../hooks/useReveal';
 import { StarIcon } from '../components/LineIcons';
@@ -41,7 +41,7 @@ export default function Hero() {
         </div>
 
         <div className="hero__visual">
-          <HeroPipeline />
+          <HeroDartboard />
         </div>
       </div>
     </section>

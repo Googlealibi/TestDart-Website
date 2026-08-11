@@ -1,12 +1,13 @@
 import useReveal from '../hooks/useReveal';
 import SectionHead from '../components/SectionHead';
+import MetricValue from '../components/MetricValue';
 import './Metrics.css';
 
 const STATS = [
   { value: '10×', label: 'Turn requirements into test cases 10x faster than doing it by hand.' },
   { value: '98%', label: 'Cut up to 98% of the repetitive work that slows your team down before every release.' },
-  { value: 'Real-time', label: 'Watch your tests run in real time, no chasing updates.' },
-  { value: 'End-to-end', label: 'Stay connected end-to-end, from requirement to final result.' },
+  { value: 'Real-time', before: 'Delayed', label: 'Watch your tests run in real time, no chasing updates.' },
+  { value: 'End-to-end', before: 'Disconnected', label: 'Stay connected end-to-end, from requirement to final result.' },
 ];
 
 export default function Metrics() {
@@ -21,9 +22,9 @@ export default function Metrics() {
         </SectionHead>
 
         <div ref={ref} className={`metrics-grid ${visible ? 'is-visible' : ''}`}>
-          {STATS.map(({ value, label }, i) => (
+          {STATS.map(({ value, before, label }, i) => (
             <div className="metrics-tile card" key={label} style={{ '--delay': `${i * 100}ms` }}>
-              <span className="metrics-tile__value">{value}</span>
+              <MetricValue value={value} before={before} visible={visible} delay={i * 120} />
               <span className="metrics-tile__label">{label}</span>
             </div>
           ))}

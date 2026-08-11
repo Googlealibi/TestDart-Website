@@ -1,0 +1,104 @@
+.dart-stage {
+  position: relative;
+  height: 480px;
+  perspective: 1200px;
+  --rx: 0deg;
+  --ry: 0deg;
+}
+
+.dart-stage__glow {
+  position: absolute;
+  inset: -10% -4%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(var(--green-rgb), 0.18), transparent 72%);
+  filter: blur(6px);
+  animation: dartGlowBreathe 8s ease-in-out infinite;
+}
+
+@keyframes dartGlowBreathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.dart-board {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 340px;
+  margin: -170px 0 0 -170px;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.15s ease-out;
+  animation: dartBoardFloat 7s ease-in-out infinite;
+}
+
+@keyframes dartBoardFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+.dart-board__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 40px rgba(15, 23, 42, 0.18));
+  transition: filter 0.3s ease;
+}
+
+.dart-ring {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dartRingSpin var(--ring-speed) linear infinite;
+  transform-style: preserve-3d;
+  translate: 0 0 calc(var(--ring-radius) * 0.12);
+  pointer-events: none;
+}
+.dart-ring--rev { animation-direction: reverse; }
+
+@keyframes dartRingSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.dart-ring__label {
+  position: absolute;
+  transform: translateY(calc(-1 * var(--ring-radius))) rotate(0deg);
+  animation: dartLabelSpin var(--ring-speed) linear infinite reverse;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--green-dark);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(var(--green-rgb), 0.35);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px -8px rgba(15, 23, 42, 0.25);
+}
+.dart-ring--rev .dart-ring__label { animation-direction: normal; }
+
+@keyframes dartLabelSpin {
+  from { transform: translateY(calc(-1 * var(--ring-radius))) rotate(0deg); }
+  to { transform: translateY(calc(-1 * var(--ring-radius))) rotate(-360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dart-stage__glow,
+  .dart-board,
+  .dart-ring,
+  .dart-ring__label {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .dart-stage { height: 340px; }
+  .dart-board { width: 240px; height: 240px; margin: -120px 0 0 -120px; }
+  .dart-ring__label { font-size: 10px; padding: 3px 8px; }
+}
