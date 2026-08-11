@@ -6,7 +6,7 @@
   display: grid;
   gap: 10px;
   margin-top: 22px;
-  height: 460px;
+  height: 360px;
   transition: grid-template-columns 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     grid-template-rows 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
@@ -106,61 +106,62 @@
   .particle { animation: none !important; }
 }
 
+/* Both text blocks below get a FIXED width instead of stretching to the
+   card's live, animating size — the card itself grows/shrinks via
+   grid-template-columns, but the text layout never has to re-wrap
+   mid-transition (which is what caused the "last word jumps to the next
+   line" flicker). Only the card's own overflow:hidden clips them, and
+   since both are hidden via opacity 0 whenever the card isn't the exact
+   width they expect, that clipping is never visible. */
 .expand-card__collapsed {
   position: absolute;
   left: 50%;
   top: 50%;
+  width: 108px;
   transform: translate(-50%, -50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  transition: opacity 0.2s ease;
+  justify-content: center;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
-.expand-card[data-active='true'] .expand-card__collapsed { opacity: 0; }
+.expand-card[data-active='true'] .expand-card__collapsed { opacity: 0; transition: opacity 0.2s ease; }
 
 .expand-card__collapsed .expand-card__label {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.02em;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--slate-900);
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .expand-card__body {
   position: absolute;
-  inset: 0;
+  left: 26px;
+  top: 50%;
+  width: 340px;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 10px;
-  padding: 26px;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
 }
-.expand-card[data-active='true'] .expand-card__body { opacity: 1; }
+.expand-card[data-active='true'] .expand-card__body { opacity: 1; transition: opacity 0.35s ease 0.08s; }
 
 .expand-card__body h3 {
   color: var(--slate-900);
   font-size: 20px;
   font-weight: 800;
-  transform: translateY(6px);
-  opacity: 0;
-  transition: transform 0.3s ease 0.1s, opacity 0.3s ease 0.1s;
 }
-.expand-card[data-active='true'] .expand-card__body h3 { transform: translateY(0); opacity: 1; }
 
 .expand-card__body p {
-  max-width: 340px;
   color: var(--slate-700);
   font-size: 15px;
   line-height: 1.6;
-  transform: translateY(6px);
-  opacity: 0;
-  transition: transform 0.3s ease 0.16s, opacity 0.3s ease 0.16s;
 }
-.expand-card[data-active='true'] .expand-card__body p { transform: translateY(0); opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .expand-grid, .expand-card, .expand-card * { transition: none !important; }
@@ -168,9 +169,10 @@
 }
 
 @media (max-width: 767px) {
-  .expand-grid { height: 620px; gap: 8px; }
+  .expand-grid { height: 520px; gap: 8px; }
   .expand-card__collapsed .expand-card__label { display: none; }
-  .expand-card__body { padding: 20px; }
-  .expand-card__body p { max-width: none; }
+  /* Viewport-relative, not parent-relative — this only changes on
+     resize, never mid-transition, so it can't reintroduce the reflow. */
+  .expand-card__body { width: calc(100vw - 80px); }
   .expand-card__watermark svg { width: 64px; height: 64px; }
 }

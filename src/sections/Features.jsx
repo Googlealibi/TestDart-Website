@@ -4,7 +4,7 @@ import SectionHead from '../components/SectionHead';
 import Spotlight from '../components/Spotlight';
 import {
   ClipboardIcon, LinkIcon, SparkleIcon, PlayIcon,
-  ActivityIcon, BarChartIcon, ClockIcon, UserCheckIcon, BrowserCheckIcon,
+  ActivityIcon, BarChartIcon, UserCheckIcon, BrowserCheckIcon,
   CheckIcon, BugIcon, TerminalIcon,
 } from '../components/LineIcons';
 import './Features.css';
@@ -16,7 +16,6 @@ const FEATURES = [
   { title: 'Run Tests Without the Manual Work', body: 'TestDart runs your tests in a real browser and shows progress as it happens.', Icon: PlayIcon },
   { title: 'Know What Happened During Every Run', body: 'Track run status and results for every test, so your team always knows where things stand.', Icon: ActivityIcon },
   { title: 'Understand Results Faster', body: 'Execution results come back as a clear report, so your team can see what passed and what failed at a glance.', Icon: BarChartIcon },
-  { title: 'Always Know What Changed', body: 'See what changed on a requirement, test case, or execution, and when, so nothing happens without a trace.', Icon: ClockIcon },
   { title: 'Work Together With Your Team', body: 'Invite your team, assign roles, and manage access, so everyone works from the same project.', Icon: UserCheckIcon },
 ];
 
@@ -35,11 +34,14 @@ export default function Features() {
     return () => mql.removeEventListener('change', onChange);
   }, []);
 
-  // Each card holds 1fr; the active one grows to 5fr — a CSS-only expand,
-  // columns on desktop and rows on mobile, so the same activeIndex state
-  // drives both layouts.
+  // Each card holds 1fr; the active one grows to 3.6fr — a CSS-only
+  // expand, columns on desktop and rows on mobile, so the same
+  // activeIndex state drives both layouts. Kept modest (not the old 5fr)
+  // so the collapsed strips stay wide enough for a horizontal label, but
+  // wide enough that the active card's fixed-width text block (340px,
+  // see Features.css) isn't clipped.
   const gridStyle = useMemo(() => {
-    const track = FEATURES.map((_, i) => (i === activeIndex ? '5fr' : '1fr')).join(' ');
+    const track = FEATURES.map((_, i) => (i === activeIndex ? '3.6fr' : '1fr')).join(' ');
     return isDesktop ? { gridTemplateColumns: track } : { gridTemplateRows: track };
   }, [activeIndex, isDesktop]);
 
