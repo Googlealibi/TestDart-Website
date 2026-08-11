@@ -4,7 +4,8 @@ import SectionHead from '../components/SectionHead';
 import Spotlight from '../components/Spotlight';
 import {
   ClipboardIcon, LinkIcon, SparkleIcon, PlayIcon,
-  ActivityIcon, BarChartIcon, ClockIcon, UserCheckIcon,
+  ActivityIcon, BarChartIcon, ClockIcon, UserCheckIcon, BrowserCheckIcon,
+  CheckIcon, BugIcon, TerminalIcon,
 } from '../components/LineIcons';
 import './Features.css';
 
@@ -46,6 +47,7 @@ export default function Features() {
     <section className="section section--bg" id="features">
       <div className="container">
         <SectionHead>
+         
           <span className="eyebrow">WHAT TESTDART HELPS YOU DO</span>
           <h2>Everything your QA team needs to move from requirement to release</h2>
         </SectionHead>
@@ -64,6 +66,12 @@ export default function Features() {
               onClick={() => setActiveIndex(i)}
             >
               <span className="expand-card__watermark" aria-hidden="true"><f.Icon /></span>
+
+              <span className="expand-card__particles" aria-hidden="true">
+                <span className="particle particle--1"><CheckIcon /></span>
+                <span className="particle particle--2"><BugIcon /></span>
+                <span className="particle particle--3"><TerminalIcon /></span>
+              </span>
 
               <div className="expand-card__collapsed" aria-hidden="true">
                 <span className="expand-card__label">{f.title}</span>

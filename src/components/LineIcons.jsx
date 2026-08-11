@@ -162,3 +162,31 @@ export function BarChartIcon() {
     </svg>
   );
 }
+
+export function BugIcon() {
+  return (
+    <svg {...iconProps}>
+      <rect x="8" y="7" width="8" height="11" rx="4" />
+      <path d="M12 7V4M9 5l-1.5-1.5M15 5l1.5-1.5M4 11h4M16 11h4M4 16h3.5M16.5 16H20M9 9l-2.5-1.5M15 9l2.5-1.5" />
+    </svg>
+  );
+}
+
+export function TerminalIcon() {
+  return (
+    <svg {...iconProps}>
+      <rect x="3" y="4.5" width="18" height="15" rx="2" />
+      <path d="M7 9.5l3 3-3 3M12.5 15.5h4.5" />
+    </svg>
+  );
+}
+
+export function BrowserCheckIcon() {
+  return (
+    <svg {...iconProps}>
+      <rect x="3" y="4.5" width="18" height="15" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <path d="M8.5 14.5l2.2 2.2L15.5 12" />
+    </svg>
+  );
+}

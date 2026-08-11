@@ -6,7 +6,7 @@ import './Spotlight.css';
 // where each item needs its own independent mouse tracking.
 export default function Spotlight({
   as: Tag = 'div',
-  spotlightColor = 'rgba(55, 134, 53, 0.16)',
+  spotlightColor = 'rgba(45, 107, 42, 0.26)',
   className = '',
   children,
   onMouseEnter,
