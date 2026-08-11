@@ -8,8 +8,8 @@ import './AppShellMock.css';
 const NAV = [
   { icon: libraryIcon, label: 'Library' },
   { icon: requirementsIcon, label: 'Requirements' },
-  { icon: testgenIcon, label: 'AI Genie' },
-  { icon: executionIcon, label: 'Execution', active: true },
+  { icon: testgenIcon, label: 'Project Brain' },
+  { icon: executionIcon, label: 'AI Genie', active: true },
   { icon: reportsIcon, label: 'Reports' },
 ];
 
