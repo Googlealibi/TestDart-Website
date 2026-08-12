@@ -1,0 +1,8 @@
+.section-divider {
+  position: relative;
+  z-index: 1;
+  height: 1px;
+  width: 100%;
+  margin: 18px 0;
+  background: rgba(var(--green-rgb), 0.25);
+}
