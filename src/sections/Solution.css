@@ -1,74 +1,118 @@
-/* Sticky card-stack, same mechanic as How It Works' — left column pins
-   while the right column's cards stack on scroll, each a `position:
-   sticky` list item offset a few px below the last. */
-.reason-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  align-items: start;
+/* Journey path — cards sit in normal document flow (no artificial scroll
+   height, nothing pinned/sticky), alternating left/right along a curved
+   SVG path. Scroll position only ever decides which card is "active" and
+   how far the glow has filled in along the line; it never changes how
+   much the page scrolls, so this can't turn into scroll-jacking. */
+.reason-cta { justify-content: center; margin-top: 40px; }
+
+.reason-journey {
+  position: relative;
+  margin-top: 48px;
 }
 
-.reason-intro {
-  position: sticky;
-  top: 112px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+.reason-journey__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
 }
-.reason-intro.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reason-intro__cta { justify-content: flex-start; }
-
-.reason-cards {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.reason-journey__path-line {
+  fill: none;
+  stroke: rgba(55, 134, 53, 0.22);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1 9;
 }
 
-/* Cards size to their own content (a short reason stays short, a longer
-   one grows) instead of a forced uniform height — the min-height is only
-   a shared floor so a short card never looks stunted next to a tall one.
-   Padding, border, radius, and type scale stay identical across all four
-   so they still read as one consistent set. */
-.reason-card {
-  position: sticky;
-  min-height: 200px;
-  margin-bottom: 24px;
-  padding: 30px 32px;
+/* A short bold segment travels the whole path on its own, continuously —
+   not tied to scroll at all. dash + gap add up to exactly 1 (matching
+   pathLength="1"), so animating dashoffset from 1 to 0 loops seamlessly. */
+.reason-journey__path-glow {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.14 0.86;
+  filter: drop-shadow(0 0 3px rgba(55, 134, 53, 0.55));
+  animation: reasonPathTravel 3.6s linear infinite;
+}
+
+@keyframes reasonPathTravel {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.reason-journey__waypoint {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
   background: var(--white);
-  border: 1.5px solid var(--slate-300);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
-  backface-visibility: hidden;
+  border: 2px solid var(--slate-300);
+  transform: translate(-50%, -50%);
+  transition: background 0.4s ease, border-color 0.4s ease;
+  z-index: 0;
 }
-.reason-card:last-child { margin-bottom: 0; }
+.reason-journey__waypoint.is-passed { background: var(--green); border-color: var(--green); }
 
-.reason-card__index {
-  display: block;
+.reason-journey__row {
+  position: relative;
+  display: flex;
+  min-height: 240px;
+  align-items: center;
+  z-index: 1;
+}
+.reason-journey__row.is-left { justify-content: flex-start; }
+.reason-journey__row.is-right { justify-content: flex-end; }
+
+.reason-journey__card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--white);
+  border: 1.5px solid var(--slate-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 28px 30px;
+  transform: scale(0.92);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.reason-journey__row.is-left .reason-journey__card { transform: scale(0.92) rotate(-1.5deg); }
+.reason-journey__row.is-right .reason-journey__card { transform: scale(0.92) rotate(1.5deg); }
+
+.reason-journey__card.is-active {
+  transform: scale(1) rotate(0deg);
+  border-color: rgba(55, 134, 53, 0.45);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
+}
+/* Final card keeps the same position/spacing rhythm as every other reason
+   (see NODES) — only a mildly stronger border marks it as the last stop,
+   no layout difference. */
+.reason-journey__card.is-last {
+  border-color: rgba(55, 134, 53, 0.3);
+}
+.reason-journey__card.is-last.is-active {
+  background: linear-gradient(165deg, var(--white) 0%, var(--green-light) 100%);
+  border-color: var(--green);
+  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(55, 134, 53, 0.28), 0 0 32px rgba(55, 134, 53, 0.22);
+  transform: scale(1.04) rotate(0deg);
+}
+
+.reason-journey__index {
+  display: inline-block;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--green-dark);
 }
 
-.reason-card h3 {
-  margin-top: 14px;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.3;
-}
+.reason-journey__card h3 { margin-top: 14px; font-size: 20px; font-weight: 700; line-height: 1.3; }
+.reason-journey__card p { margin-top: 10px; font-size: 14.5px; line-height: 1.65; color: var(--slate-600); }
 
-.reason-card p {
-  margin-top: 10px;
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: var(--slate-600);
-}
-
-.reason-card__outcome {
+.reason-journey__outcome {
   display: block;
   margin-top: 18px;
   padding-top: 14px;
@@ -80,11 +124,26 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reason-intro { transition: none !important; opacity: 1; transform: none; }
+  .reason-journey__card,
+  .reason-journey__waypoint {
+    transition: none !important;
+  }
+  .reason-journey__card { transform: none !important; }
+  .reason-journey__card.is-active { transform: none !important; }
+  .reason-journey__path-glow { animation: none !important; stroke-dashoffset: 1; }
 }
 
 @media (max-width: 900px) {
-  .reason-layout { grid-template-columns: 1fr; gap: 28px; }
-  .reason-intro { position: static; }
-  .reason-card { min-height: 0; padding: 26px; }
+  .reason-journey__row { min-height: 0; padding: 0 0 24px; }
+  .reason-journey__card { max-width: 84%; }
+  .reason-journey__path-line,
+  .reason-journey__path-glow { stroke-width: 1.5; }
+}
+
+@media (max-width: 560px) {
+  .reason-journey__card { max-width: 100%; padding: 22px; }
+  .reason-journey__row.is-left,
+  .reason-journey__row.is-right { justify-content: center; }
+  .reason-journey__row.is-left .reason-journey__card,
+  .reason-journey__row.is-right .reason-journey__card { transform: scale(0.94) rotate(0deg); }
 }

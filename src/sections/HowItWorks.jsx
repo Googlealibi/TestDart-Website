@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import useReveal from '../hooks/useReveal';
 import SectionHead from '../components/SectionHead';
+import Spotlight from '../components/Spotlight';
 import { CheckIcon } from '../components/LineIcons';
 import chromeIcon from '../assets/icons/chrome.svg';
 import firefoxIcon from '../assets/icons/firefox.svg';
@@ -165,140 +166,47 @@ const STEPS = [
   },
 ];
 
-// Percentage coordinates (of the journey container) each step's card sits
-// near — alternating left/right all the way through, evenly spaced, so
-// the rhythm (and the gap around each card) stays the same for every
-// step including the last one instead of breaking to a centered spot.
-// The path SVG is built from these same points, so the line always
-// matches where the cards actually are.
-const NODES = [
-  { x: 24, y: 10 },
-  { x: 76, y: 30 },
-  { x: 24, y: 50 },
-  { x: 76, y: 70 },
-  { x: 24, y: 90 },
-];
-const CTRL_DY = 10; // vertical handle offset — how pronounced each curve is
-
-const SEGMENTS = NODES.slice(0, -1).map((p0, i) => {
-  const p1 = NODES[i + 1];
-  return {
-    p0,
-    c1: { x: p0.x, y: p0.y + CTRL_DY },
-    c2: { x: p1.x, y: p1.y - CTRL_DY },
-    p1,
-  };
-});
-
-const PATH_D = `M${NODES[0].x},${NODES[0].y} ${SEGMENTS
-  .map((s) => `C${s.c1.x},${s.c1.y} ${s.c2.x},${s.c2.y} ${s.p1.x},${s.p1.y}`)
-  .join(' ')}`;
+const STICKY_TOP = 112;
+const STICKY_STEP = 14;
 
 export default function HowItWorks() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const journeyRef = useRef(null);
-
-  // Scroll-driven, but NOT scroll-jacked: the container has no artificial
-  // extra height and nothing is pinned/sticky, so this never holds the
-  // page hostage — it only reads normal scroll position (rAF-throttled,
-  // gated to while the section is actually on screen) to decide which
-  // step is active. The path's glow segment is a separate, purely CSS
-  // animation loop (see .hiw-journey__path-glow) — it just keeps moving
-  // on its own, independent of scroll.
-  useEffect(() => {
-    const el = journeyRef.current;
-    if (!el) return undefined;
-
-    let raf = 0;
-    let inView = false;
-
-    const measure = () => {
-      raf = 0;
-      if (!inView) return;
-      const rect = el.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
-      const progress = Math.min(1, Math.max(0, (viewportCenter - rect.top) / rect.height));
-      const idx = Math.min(NODES.length - 1, Math.max(0, Math.round(progress * (NODES.length - 1))));
-      setActiveIndex(idx);
-    };
-
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(measure);
-    };
-
-    const observer = new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
-      if (inView) measure();
-    }, { threshold: 0 });
-    observer.observe(el);
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-      observer.disconnect();
-    };
-  }, []);
+  const [ref, visible] = useReveal(0.15);
 
   return (
     <section className="section section--bg" id="how-it-works">
-      <div className="container">
-        <SectionHead>
-          <span className="eyebrow">HOW IT WORKS</span>
-          <h2>From your requirement to a clear test result</h2>
-          <p>
-            testdart takes the testing work from the information you already have to executable
-            tests and readable results, keeping the journey connected from start to finish.
-          </p>
-        </SectionHead>
+      <div className="container hiw-layout">
+        <div className={`hiw-intro ${visible ? 'is-visible' : ''}`} ref={ref}>
+          <SectionHead>
+            <span className="eyebrow">HOW IT WORKS</span>
+            <h2>From your requirement to a clear test result</h2>
+            <p>
+              testdart takes the testing work from the information you already have to executable
+              tests and readable results, keeping the journey connected from start to finish.
+            </p>
+          </SectionHead>
+        </div>
 
-        <div ref={journeyRef} className="hiw-journey">
-          <svg className="hiw-journey__path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path d={PATH_D} className="hiw-journey__path-line" vectorEffect="non-scaling-stroke" />
-            {/* A short bold segment travels the path on its own continuous
-                loop (pure CSS animation) — not tied to scroll position, it
-                just keeps moving. pathLength="1" keeps the dash math in
-                0..1 regardless of the curve's actual geometry. */}
-            <path
-              d={PATH_D}
-              className="hiw-journey__path-glow"
-              vectorEffect="non-scaling-stroke"
-              pathLength="1"
-            />
-          </svg>
-
-          {NODES.map((n, i) => (
-            <span
-              key={`wp-${n.x}-${n.y}`}
-              className={`hiw-journey__waypoint ${i <= activeIndex ? 'is-passed' : ''}`}
-              style={{ left: `${n.x}%`, top: `${n.y}%` }}
-              aria-hidden="true"
-            />
-          ))}
-
+        <ul className="hiw-cards-stack">
           {STEPS.map((step, i) => {
             const Visual = step.Visual;
-            const side = i % 2 === 0 ? 'is-left' : 'is-right';
             return (
-              <div className={`hiw-journey__row ${side}`} key={step.label}>
-                <div
-                  className={`hiw-journey__card ${i === activeIndex ? 'is-active' : ''} ${i < activeIndex ? 'is-done' : ''} ${i === STEPS.length - 1 ? 'is-last' : ''}`}
-                >
-                  <div className="hiw-journey__card-head">
-                    <span className="hiw-journey__num">
-                      {i < activeIndex ? <CheckIcon /> : String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="hiw-journey__label">{step.label}</span>
-                  </div>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                  <div className="hiw-journey__visual"><Visual /></div>
+              <Spotlight
+                as="li"
+                className="hiw-stack-card"
+                key={step.label}
+                style={{ top: `${STICKY_TOP + i * STICKY_STEP}px`, zIndex: i + 1 }}
+              >
+                <div className="hiw-stack-card__head">
+                  <span className="hiw-stack-card__index">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="hiw-stack-card__label">{step.label}</span>
                 </div>
-              </div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+                <div className="hiw-stack-card__visual"><Visual /></div>
+              </Spotlight>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

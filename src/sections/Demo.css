@@ -1,9 +1,11 @@
+.demo__container { max-width: 1340px; }
+
 .demo {
-  max-width: 1180px;
+  max-width: 1340px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
-  gap: 48px;
+  gap: 56px;
   align-items: center;
 }
 
@@ -45,8 +47,8 @@
 }
 
 .demo__play {
-  width: 68px;
-  height: 68px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: none;
   background: var(--green);
@@ -61,7 +63,7 @@
 .demo__play svg { margin-left: 3px; }
 
 .demo__caption {
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255,255,255,0.65);
   font-weight: 500;
 }

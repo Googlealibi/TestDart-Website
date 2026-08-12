@@ -6,7 +6,7 @@ export default function Demo() {
   const [ref, visible] = useReveal();
   return (
     <section className="section section--surface" id="demo">
-      <div className="container">
+      <div className="container demo__container">
         <div ref={ref} className={`demo reveal ${visible ? 'is-visible' : ''}`}>
           <div className="demo__text">
             <SectionHead>
