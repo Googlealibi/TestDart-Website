@@ -50,9 +50,18 @@
 .metrics-tile__flip-line:first-child {
   color: var(--slate-400);
 }
+.metrics-tile__word {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--green-dark);
+}
+
 .metrics-tile__label {
   display: block;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 13.5px;
   line-height: 1.5;
   color: var(--slate-600);
