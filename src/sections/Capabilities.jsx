@@ -98,18 +98,25 @@ function MemoryVisual() {
   return (
     <div className="capability-panel capability-panel--full">
       <span className="capability-label">Project Brain</span>
-      <div className="memory-mock">
-        <svg className="memory-mock__wires" viewBox="0 0 200 160" preserveAspectRatio="none">
-          <path d="M30 24 L100 80" />
-          <path d="M170 24 L100 80" />
-          <path d="M30 136 L100 80" />
-          <path d="M170 136 L100 80" />
-        </svg>
-        <span className="memory-mock__node" style={{ left: '15%', top: '15%' }}>Requirement</span>
-        <span className="memory-mock__node" style={{ left: '85%', top: '15%' }}>Test Case</span>
-        <span className="memory-mock__node" style={{ left: '15%', top: '85%' }}>Execution</span>
-        <span className="memory-mock__node" style={{ left: '85%', top: '85%' }}>Report</span>
-        <span className="memory-mock__hub">Project<br />Memory</span>
+      <div className="brain-mock">
+        <div className="brain-mock__core">
+          <span className="brain-mock__core-ring" />
+          <span className="brain-mock__core-ring brain-mock__core-ring--delay" />
+          <span className="brain-mock__core-label">Project<br />Brain</span>
+        </div>
+
+        <div className="brain-mock__stream" aria-hidden="true">
+          <span className="brain-mock__rail" />
+          <span className="brain-mock__dot" style={{ '--i': 0 }} />
+          <span className="brain-mock__dot" style={{ '--i': 1 }} />
+          <span className="brain-mock__dot" style={{ '--i': 2 }} />
+        </div>
+
+        <div className="brain-mock__docs">
+          <span className="brain-mock__doc" style={{ '--i': 0 }}>New Requirement: Checkout</span>
+          <span className="brain-mock__doc" style={{ '--i': 1 }}>New Requirement: Search</span>
+          <span className="brain-mock__doc" style={{ '--i': 2 }}>New Requirement: Login</span>
+        </div>
       </div>
     </div>
   );
