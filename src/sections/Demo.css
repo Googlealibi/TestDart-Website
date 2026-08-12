@@ -1,6 +1,22 @@
-.demo { max-width: 860px; margin: 0 auto; }
+.demo {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.demo__text .section-head { text-align: left; margin: 0 0 20px; }
+.demo__text .cta__actions { justify-content: flex-start; }
 
 .demo__frame { }
+
+@media (max-width: 860px) {
+  .demo { grid-template-columns: 1fr; }
+  .demo__text .section-head { text-align: center; }
+  .demo__text .cta__actions { justify-content: center; }
+}
 
 .demo__stage {
   position: relative;
