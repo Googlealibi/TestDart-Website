@@ -1,5 +1,4 @@
 import SiteBackground from './components/SiteBackground';
-import SectionDivider from './components/SectionDivider';
 import Navbar from './sections/Navbar';
 import Hero from './sections/Hero';
 import Metrics from './sections/Metrics';
@@ -20,22 +19,14 @@ function App() {
       <SiteBackground />
       <Navbar />
       <Hero />
-      <SectionDivider />
       <Demo />
-      <SectionDivider />
       <Metrics />
-      <SectionDivider />
       {/* <Problem /> */}
       <Solution />
-      <SectionDivider />
       <Features />
-      <SectionDivider />
       <HowItWorks />
-      <SectionDivider />
       <Capabilities />
-      <SectionDivider />
       <Pricing />
-      <SectionDivider />
       <FAQ />
       <FinalCta />
       <Footer />

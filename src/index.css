@@ -79,8 +79,6 @@ button { font-family: inherit; cursor: pointer; }
   padding: var(--section-pad) 0;
 }
 
-.section--surface { background: rgba(var(--surface-rgb), 0.94); }
-.section--bg { background: rgba(var(--bg-rgb), 0.94); }
 
 /* Every section sits above the fixed SiteBackground; translucent fills
    above let its signal-path system bleed through continuously instead of

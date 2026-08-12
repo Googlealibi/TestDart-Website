@@ -1,6 +1,6 @@
 .hero {
   padding: 40px 0 var(--section-pad);
-  background: radial-gradient(1100px 480px at 18% -10%, rgba(55,134,53,0.14), transparent 60%), rgba(var(--bg-rgb), 0.9);
+  background: radial-gradient(1100px 480px at 18% -10%, rgba(55,134,53,0.14), transparent 60%);
 }
 
 .hero__grid {
