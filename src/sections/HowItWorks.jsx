@@ -7,10 +7,10 @@ import edgeIcon from '../assets/icons/edge.svg';
 import './HowItWorks.css';
 
 const TEST_ITEMS = [
-  { id: 'TC-101', title: 'Log in with a valid email and password' },
-  { id: 'TC-102', title: 'Redirect to the dashboard after login' },
-  { id: 'TC-103', title: 'Display the account name in the header' },
-  { id: 'TC-104', title: 'Allow password reset from the login screen' },
+  { id: 'TC-101', title: 'Log in with a valid email and password', steps: 3, priority: 'High' },
+  { id: 'TC-102', title: 'Redirect to the dashboard after login', steps: 2, priority: 'Medium' },
+  { id: 'TC-103', title: 'Display the account name in the header', steps: 2, priority: 'Low' },
+  { id: 'TC-104', title: 'Allow password reset from the login screen', steps: 4, priority: 'Medium' },
 ];
 
 const RUN_STEPS = [
@@ -46,9 +46,12 @@ function GeneratedVisual() {
       <div className="hiw-cases">
         {TEST_ITEMS.map((c) => (
           <div className="hiw-case" key={c.id}>
-            <span className="hiw-case__id">{c.id}</span>
-            <span className="hiw-case__title">{c.title}</span>
-            <span className="hiw-tag hiw-tag--new">New</span>
+            <div className="hiw-case__top">
+              <span className="hiw-case__id">{c.id}</span>
+              <span className="hiw-case__title">{c.title}</span>
+              <span className="hiw-tag hiw-tag--new">New</span>
+            </div>
+            <span className="hiw-case__meta">{c.steps} steps &middot; {c.priority} priority</span>
           </div>
         ))}
       </div>
@@ -63,9 +66,12 @@ function ReadyVisual() {
       <div className="hiw-cases">
         {TEST_ITEMS.map((c) => (
           <div className="hiw-case" key={c.id}>
-            <span className="hiw-case__id">{c.id}</span>
-            <span className="hiw-case__title">{c.title}</span>
-            <span className="hiw-tag hiw-tag--ready"><CheckIcon /> Ready</span>
+            <div className="hiw-case__top">
+              <span className="hiw-case__id">{c.id}</span>
+              <span className="hiw-case__title">{c.title}</span>
+              <span className="hiw-tag hiw-tag--ready"><CheckIcon /> Ready</span>
+            </div>
+            <span className="hiw-case__meta">{c.steps} steps &middot; {c.priority} priority</span>
           </div>
         ))}
       </div>
@@ -107,7 +113,7 @@ function ReportVisual() {
   return (
     <div className="hiw-panel">
       <div className="hiw-report__head">
-        <span className="hiw-panel__label">Test Report — Login Suite</span>
+        <span className="hiw-panel__label">Test Report for Login Suite</span>
         <div className="hiw-report__summary">
           <span className="hiw-tag hiw-tag--pass">{passed} Passed</span>
           <span className="hiw-tag hiw-tag--fail">{failed} Failed</span>

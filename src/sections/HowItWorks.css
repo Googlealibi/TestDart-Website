@@ -192,17 +192,23 @@
 
 .hiw-cases { display: flex; flex-direction: column; gap: 8px; }
 .hiw-case {
-  display: grid;
-  grid-template-columns: 58px 1fr auto;
-  align-items: center;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   background: var(--slate-50);
   border: 1px solid var(--slate-200);
   border-radius: 8px;
   padding: 10px 12px;
 }
+.hiw-case__top {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
 .hiw-case__id { font-size: 11px; font-weight: 700; color: var(--slate-500); }
 .hiw-case__title { font-size: 12.5px; color: var(--slate-800); }
+.hiw-case__meta { font-size: 10.5px; color: var(--slate-500); padding-left: 68px; }
 
 .hiw-tag {
   display: inline-flex;

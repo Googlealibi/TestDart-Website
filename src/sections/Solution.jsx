@@ -43,7 +43,7 @@ export default function Solution() {
               Your team shouldn't have to spend days turning requirements into tests, repeating
               the same QA work, and chasing results before every release. TestDart brings
               AI-assisted testing into one connected experience so your team can spend less time
-              preparing and managing tests&mdash;and more time getting the product ready to ship.
+              preparing and managing tests, and more time getting the product ready to ship.
             </p>
           </SectionHead>
 

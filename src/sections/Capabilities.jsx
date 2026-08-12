@@ -10,10 +10,10 @@ import edgeIcon from '../assets/icons/edge.svg';
 import './Capabilities.css';
 
 const CASES = [
-  { id: 'TC-041', title: 'Reject login with invalid password', priority: 'Pass' },
-  { id: 'TC-042', title: 'Lock account after 5 failed attempts', priority: 'Fail' },
-  { id: 'TC-043', title: 'Allow login with valid credentials', priority: 'Pass' },
-  { id: 'TC-044', title: 'Show inline error for empty fields', priority: 'Fail' },
+  { id: 'TC-041', title: 'Reject login with invalid password', steps: 3, priority: 'High' },
+  { id: 'TC-042', title: 'Lock account after 5 failed attempts', steps: 5, priority: 'High' },
+  { id: 'TC-043', title: 'Allow login with valid credentials', steps: 2, priority: 'Medium' },
+  { id: 'TC-044', title: 'Show inline error for empty fields', steps: 2, priority: 'Low' },
 ];
 
 const RUN_STEPS = [
@@ -51,7 +51,7 @@ const ROWS = [
   {
     eyebrow: 'Self-Healing Execution',
     title: '100% self-healing. No code at all.',
-    body: "Applications change all the time — a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, TestDart is built to notice what changed and adjust the test so it can keep running. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
+    body: "Applications change all the time, a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, TestDart is built to notice what changed and adjust the test so it can keep running. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
     list: [
       { Icon: PlayIcon, text: 'Reduce the need to write and maintain test scripts manually' },
       { Icon: SparkleIcon, text: 'Move from test creation to execution without maintaining every step by hand' },
@@ -80,9 +80,12 @@ function GenerationVisual() {
         <div className="capability-cases">
           {CASES.map((c) => (
             <div className="capability-case" key={c.id}>
-              <span className="capability-case-id">{c.id}</span>
-              <span className="capability-case-title">{c.title}</span>
-              <span className={`capability-case-priority p-${c.priority.toLowerCase()}`}>{c.priority}</span>
+              <div className="capability-case__top">
+                <span className="capability-case-id">{c.id}</span>
+                <span className="capability-case-title">{c.title}</span>
+                <span className={`capability-case-priority p-${c.priority.toLowerCase()}`}>{c.priority}</span>
+              </div>
+              <span className="capability-case__meta">{c.steps} steps</span>
             </div>
           ))}
         </div>
