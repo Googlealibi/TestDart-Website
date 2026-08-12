@@ -10,39 +10,39 @@ import edgeIcon from '../assets/icons/edge.svg';
 import './Capabilities.css';
 
 const CASES = [
-  { id: 'TC-041', title: 'Reject login with invalid password', steps: 3, priority: 'High' },
-  { id: 'TC-042', title: 'Lock account after 5 failed attempts', steps: 5, priority: 'High' },
-  { id: 'TC-043', title: 'Allow login with valid credentials', steps: 2, priority: 'Medium' },
-  { id: 'TC-044', title: 'Show inline error for empty fields', steps: 2, priority: 'Low' },
+  { id: 'TC-041', title: 'Apply valid promo code and update order total', steps: 4, priority: 'High' },
+  { id: 'TC-042', title: 'Complete checkout with a saved payment method', steps: 5, priority: 'High' },
+  { id: 'TC-043', title: 'Recalculate tax when shipping address changes', steps: 3, priority: 'Medium' },
+  { id: 'TC-044', title: 'Split an order across two warehouses correctly', steps: 6, priority: 'Medium' },
 ];
 
 const RUN_STEPS = [
-  { label: 'Navigate to /login', state: 'done' },
-  { label: 'Enter invalid credentials', state: 'done' },
-  { label: 'Submit form and capture response', state: 'active' },
-  { label: 'Assert error message is visible', state: 'pending' },
+  { label: 'Navigate to /checkout', state: 'done' },
+  { label: 'Apply promo code SAVE20', state: 'done' },
+  { label: 'Confirm order total updates with discount', state: 'active' },
+  { label: 'Assert order confirmation is displayed', state: 'pending' },
 ];
 
 const ROWS = [
   {
-    eyebrow: 'AI Generation & Execution',
-    title: 'From Requirement to Running Test, Without the Usual Back-and-Forth',
-    body: "Give TestDart a requirement, Jira issue, or project input and let it turn that context into structured test cases and move them toward execution. Keep test creation and execution connected instead of managing each step separately.",
+    eyebrow: 'AI Test Generation',
+    title: 'Skip the Blank Page When Writing Tests',
+    body: "Give testdart a requirement or document and get back structured test cases with clear steps and priority, ready for your team to review before anything runs.",
     list: [
-      { Icon: DocumentIcon, text: 'Start with a requirement, Jira issue, or document' },
-      { Icon: ImportIcon, text: 'Turn your application context into structured test cases' },
-      { Icon: BrowserIcon, text: 'Run the generated tests in a real browser' },
-      { Icon: ActivityIcon, text: 'Follow test progress and results as execution happens' },
+      { Icon: DocumentIcon, text: 'Start from a requirement or document' },
+      { Icon: ImportIcon, text: 'Get structured steps and priority set automatically' },
+      { Icon: BrowserIcon, text: 'Review and edit before anything is marked ready' },
+      { Icon: ActivityIcon, text: "Skip rebuilding tests from scratch for every requirement" },
     ],
     cta: { label: 'Get Started' },
   },
   {
     eyebrow: 'Project Brain',
     title: 'Unified Memory of Your Project',
-    body: "Upload your project documentation once, and TestDart stores it in your Project Brain. From there, every requirement you run can pull from that same context automatically, so you're not uploading or explaining your application over and over again.",
+    body: "Upload your project documentation once, and testdart stores it in your Project Brain. From there, every requirement you run can pull from that same context automatically, so you're not uploading or explaining your application over and over again.",
     list: [
       { Icon: LinkIcon, text: 'Upload your project documentation once to build your Project Brain' },
-      { Icon: ClipboardIcon, text: 'TestDart stores it and keeps it available for every requirement' },
+      { Icon: ClipboardIcon, text: 'testdart stores it and keeps it available for every requirement' },
       { Icon: ClockIcon, text: "Each new requirement automatically pulls from what's already uploaded" },
       { Icon: SparkleIcon, text: 'No need to upload or re-explain the same project details again' },
     ],
@@ -51,10 +51,10 @@ const ROWS = [
   {
     eyebrow: 'Self-Healing Execution',
     title: '100% self-healing. No code at all.',
-    body: "Applications change all the time, a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, TestDart is built to notice what changed and adjust the test so it can keep running. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
+    body: "Applications change all the time, a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, testdart is built to notice what changed and adjust the test so it can keep running. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
     list: [
       { Icon: PlayIcon, text: 'Reduce the need to write and maintain test scripts manually' },
-      { Icon: SparkleIcon, text: 'Move from test creation to execution without maintaining every step by hand' },
+      { Icon: SparkleIcon, text: 'Keep running through small application changes without a rewrite' },
       { Icon: ClipboardIcon, text: 'Adapt affected test steps when your application changes' },
       { Icon: ClockIcon, text: 'Spend less time fixing tests and more time testing your application' },
     ],
@@ -68,8 +68,8 @@ function GenerationVisual() {
       <div className="capability-panel">
         <span className="capability-label">Requirement</span>
         <div className="capability-req">
-          Users must not be able to log in after 5 consecutive failed password attempts.
-          The account should lock and show a clear error message.
+          Users must be able to apply a valid promo code at checkout and see the order total,
+          including tax and shipping, update immediately before completing payment.
         </div>
       </div>
 
@@ -120,7 +120,7 @@ function ExecutionVisual() {
     <AppShellMock url="app.testdart.io/project/automation-run">
       <div className="run-mock">
         <div className="run-mock__head">
-          <span>Running: Login &amp; Auth Suite</span>
+          <span>Running: Checkout &amp; Pricing Suite</span>
           <span className="run-mock__browsers">
             <img src={chromeIcon} alt="" /><img src={firefoxIcon} alt="" /><img src={edgeIcon} alt="" />
           </span>

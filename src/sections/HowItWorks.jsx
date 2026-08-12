@@ -7,24 +7,24 @@ import edgeIcon from '../assets/icons/edge.svg';
 import './HowItWorks.css';
 
 const TEST_ITEMS = [
-  { id: 'TC-101', title: 'Log in with a valid email and password', steps: 3, priority: 'High' },
-  { id: 'TC-102', title: 'Redirect to the dashboard after login', steps: 2, priority: 'Medium' },
-  { id: 'TC-103', title: 'Display the account name in the header', steps: 2, priority: 'Low' },
-  { id: 'TC-104', title: 'Allow password reset from the login screen', steps: 4, priority: 'Medium' },
+  { id: 'TC-101', title: 'Filter search results by multiple categories at once', steps: 4, priority: 'High' },
+  { id: 'TC-102', title: 'Sort results by price without losing active filters', steps: 3, priority: 'Medium' },
+  { id: 'TC-103', title: 'Persist filters after navigating back from a result', steps: 3, priority: 'Medium' },
+  { id: 'TC-104', title: 'Show an accurate result count as filters change', steps: 2, priority: 'Low' },
 ];
 
 const RUN_STEPS = [
-  { label: 'Navigate to /login', state: 'done' },
-  { label: 'Enter valid email and password', state: 'done' },
-  { label: 'Submit the login form', state: 'active' },
-  { label: 'Confirm the dashboard loads', state: 'pending' },
+  { label: 'Navigate to /search', state: 'done' },
+  { label: 'Apply category and price filters', state: 'done' },
+  { label: 'Confirm result count updates', state: 'active' },
+  { label: 'Assert filters persist after navigating back', state: 'pending' },
 ];
 
 const RESULTS = [
-  { id: 'TC-101', title: 'Log in with a valid email and password', result: 'pass' },
-  { id: 'TC-102', title: 'Redirect to the dashboard after login', result: 'pass' },
-  { id: 'TC-103', title: 'Display the account name in the header', result: 'fail' },
-  { id: 'TC-104', title: 'Allow password reset from the login screen', result: 'pass' },
+  { id: 'TC-101', title: 'Filter search results by multiple categories at once', result: 'pass' },
+  { id: 'TC-102', title: 'Sort results by price without losing active filters', result: 'pass' },
+  { id: 'TC-103', title: 'Persist filters after navigating back from a result', result: 'fail' },
+  { id: 'TC-104', title: 'Show an accurate result count as filters change', result: 'pass' },
 ];
 
 function RequirementVisual() {
@@ -32,8 +32,8 @@ function RequirementVisual() {
     <div className="hiw-panel">
       <span className="hiw-panel__label">Requirement</span>
       <p className="hiw-doc">
-        Users should be able to log in with a valid email and password and land on their
-        personal dashboard.
+        Users should be able to filter search results by multiple categories and price range,
+        with the result count and applied filters staying accurate while they browse.
       </p>
     </div>
   );
@@ -88,7 +88,7 @@ function ExecutionVisual() {
       </div>
       <div className="hiw-run">
         <div className="hiw-run__head">
-          <span>Running: Login Suite</span>
+          <span>Running: Search &amp; Filters Suite</span>
           <span className="hiw-run__browsers">
             <img src={chromeIcon} alt="" /><img src={firefoxIcon} alt="" /><img src={edgeIcon} alt="" />
           </span>
@@ -113,7 +113,7 @@ function ReportVisual() {
   return (
     <div className="hiw-panel">
       <div className="hiw-report__head">
-        <span className="hiw-panel__label">Test Report for Login Suite</span>
+        <span className="hiw-panel__label">Test Report for Search &amp; Filters Suite</span>
         <div className="hiw-report__summary">
           <span className="hiw-tag hiw-tag--pass">{passed} Passed</span>
           <span className="hiw-tag hiw-tag--fail">{failed} Failed</span>
@@ -136,13 +136,13 @@ const STEPS = [
   {
     label: 'Requirement',
     title: 'Start with your requirement',
-    description: 'Bring in a requirement, Jira issue, document, or project input that describes what needs to be tested.',
+    description: 'Bring in a requirement, document, or project input that describes what needs to be tested.',
     Visual: RequirementVisual,
   },
   {
     label: 'Generate',
     title: 'Turn it into test cases',
-    description: 'TestDart uses the available context to create structured test cases covering the expected behavior.',
+    description: 'testdart uses the available context to create structured test cases covering the expected behavior.',
     Visual: GeneratedVisual,
   },
   {
@@ -154,7 +154,7 @@ const STEPS = [
   {
     label: 'Execute',
     title: 'Run the tests in a real browser',
-    description: 'TestDart executes the selected tests in a real browser and shows the progress as the run happens.',
+    description: 'testdart executes the selected tests in a real browser and shows the progress as the run happens.',
     Visual: ExecutionVisual,
   },
   {
@@ -248,7 +248,7 @@ export default function HowItWorks() {
           <span className="eyebrow">HOW IT WORKS</span>
           <h2>From your requirement to a clear test result</h2>
           <p>
-            TestDart takes the testing work from the information you already have to executable
+            testdart takes the testing work from the information you already have to executable
             tests and readable results, keeping the journey connected from start to finish.
           </p>
         </SectionHead>

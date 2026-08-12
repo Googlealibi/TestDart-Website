@@ -19,7 +19,7 @@ export default function Pricing() {
         <SectionHead className="section-head--center">
           <span className="eyebrow">Pricing</span>
           <h2>Plans designed for your testing workflow</h2>
-          <p>Choose the setup that fits your team's testing needs. Talk to us to learn about TestDart plans and availability.</p>
+          <p>Choose the setup that fits your team's testing needs. Talk to us to learn about testdart plans and availability.</p>
         </SectionHead>
 
         <div className="pricing-grid pricing-grid--single">

@@ -13,7 +13,7 @@ export default function Footer() {
             <img src="/logo-mark.png" alt="testdart" />
             <span>testdart</span>
           </div>
-          <p>From requirements to tested software, all in one workflow.</p>
+          <p>AI-assisted testing for modern QA teams.</p>
         </div>
 
         <div className="footer__col">

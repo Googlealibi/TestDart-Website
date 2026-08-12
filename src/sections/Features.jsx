@@ -12,8 +12,8 @@ import './Features.css';
 const FEATURES = [
   { title: 'Keep Every Test Organized', body: 'Organize test cases into suites and folders, so your team always knows where every test lives.', Icon: ClipboardIcon },
   { title: 'Keep Requirements Connected', body: 'Requirements stay linked to the tests they drive, so nothing gets lost as your project grows.', Icon: LinkIcon },
-  { title: 'Turn Requirements Into Tests', body: 'Turn a requirement, document, or Jira issue into structured test cases, ready to run.', Icon: SparkleIcon },
-  { title: 'Run Tests Without the Manual Work', body: 'TestDart runs your tests in a real browser and shows progress as it happens.', Icon: PlayIcon },
+  { title: 'Turn Requirements Into Tests', body: 'Turn a requirement or document into structured test cases, ready to run.', Icon: SparkleIcon },
+  { title: 'Run Tests Without the Manual Work', body: 'testdart runs your tests in a real browser and shows progress as it happens.', Icon: PlayIcon },
   { title: 'Know What Happened During Every Run', body: 'Track run status and results for every test, so your team always knows where things stand.', Icon: ActivityIcon },
   { title: 'Understand Results Faster', body: 'Execution results come back as a clear report, so your team can see what passed and what failed at a glance.', Icon: BarChartIcon },
   { title: 'Work Together With Your Team', body: 'Invite your team, assign roles, and manage access, so everyone works from the same project.', Icon: UserCheckIcon },

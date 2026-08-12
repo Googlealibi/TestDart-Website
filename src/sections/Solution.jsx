@@ -5,23 +5,23 @@ import './Solution.css';
 
 const REASONS = [
   {
-    title: 'Stop spending release time on repetitive testing',
-    body: 'Give your team a faster way to handle the work that repeatedly slows testing down. TestDart helps turn project requirements into structured tests without starting the same preparation from scratch every time.',
-    outcome: 'Less prep work before testing even starts.',
+    title: 'Manual test writing eats into release time',
+    body: 'Give your team a faster way to handle the work that repeatedly slows testing down. testdart helps turn project requirements into structured tests without starting the same preparation from scratch every time.',
+    outcome: 'Automate test creation and keep your releases moving.',
   },
   {
-    title: 'Let your requirements do more of the work',
-    body: 'Your requirements already contain the context your team needs. TestDart uses that project information to help create meaningful tests instead of making your QA team manually translate every requirement into test cases.',
+    title: "Context shouldn't have to be re-explained every time",
+    body: 'Your requirements already contain the context your team needs. testdart uses that project information to help create meaningful tests instead of making your QA team manually translate every requirement into test cases.',
     outcome: 'Speed, without losing sight of what matters.',
   },
   {
-    title: 'Keep testing moving when deadlines get tight',
-    body: 'Last-minute changes and release deadlines shouldn’t turn testing into a bottleneck. TestDart helps your team move from test creation toward execution without relying on disconnected tools and repetitive handoffs.',
-    outcome: 'No more guessing what’s still running.',
+    title: 'Scattered tools slow everyone down',
+    body: 'Last-minute changes and release deadlines shouldn’t turn testing into a bottleneck. testdart helps your team move from test creation toward execution without relying on disconnected tools and repetitive handoffs.',
+    outcome: "No more guessing what's still running.",
   },
   {
-    title: 'Spend more time improving quality, less time managing tests',
-    body: 'Testing should help your team ship better software, not consume all of its time. TestDart reduces the repetitive work around testing so QA and engineering teams can focus more on finding issues and improving the product.',
+    title: 'Inconsistent testing creates blind spots',
+    body: 'Testing should help your team ship better software, not consume all of its time. testdart reduces the repetitive work around testing so QA and engineering teams can focus more on finding issues and improving the product.',
     outcome: 'Less time digging through logs, more time fixing what matters.',
   },
 ];
@@ -40,10 +40,9 @@ export default function Solution() {
             <span className="eyebrow">WHY TESTDART</span>
             <h2>Still spending too much time getting your software ready to release?</h2>
             <p>
-              Your team shouldn't have to spend days turning requirements into tests, repeating
-              the same QA work, and chasing results before every release. TestDart brings
-              AI-assisted testing into one connected experience so your team can spend less time
-              preparing and managing tests, and more time getting the product ready to ship.
+              Manual test writing, scattered tools, and inconsistent coverage all add up long
+              before a release ships. testdart is built to close those gaps, so your team spends
+              less time managing testing and more time improving the product.
             </p>
           </SectionHead>
 

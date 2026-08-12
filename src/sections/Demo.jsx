@@ -11,8 +11,8 @@ export default function Demo() {
           <div className="demo__text">
             <SectionHead>
               <span className="eyebrow">Product Demo</span>
-              <h2>Here's how your testing comes together, from requirement to Testing report</h2>
-              <p>A quick look at how teams save hours every week, straight from the source.</p>
+              <h2>See testdart in action</h2>
+              <p>Watch a short walkthrough before you dive in yourself.</p>
             </SectionHead>
 
             <div className="cta__actions">

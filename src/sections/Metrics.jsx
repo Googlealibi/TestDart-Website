@@ -18,7 +18,7 @@ export default function Metrics() {
         <SectionHead className="section-head--center section-head--tight">
           <span className="eyebrow">WHAT YOUR TEAM CAN EXPECT</span>
           <h2>We'll help you cut down the time testing takes, so your releases go out sooner.</h2>
-          <p>When testing starts slowing down your release, TestDart helps your team move faster. Bring your requirements in, turn them into structured tests, and keep the work connected without the usual back-and-forth.</p>
+          <p>A look at what typically changes for a QA team after adopting testdart.</p>
         </SectionHead>
 
         <div ref={ref} className={`metrics-grid ${visible ? 'is-visible' : ''}`}>

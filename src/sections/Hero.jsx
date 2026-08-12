@@ -23,8 +23,8 @@ export default function Hero() {
           </h1>
           <p className="hero__sub">
             Last-minute changes shouldn't leave your QA team rushing to get everything tested.
-            TestDart connects requirements, test creation, browser execution, and results in
-            one workflow, helping your team reduce repetitive testing and keep releases moving.
+            testdart takes the manual weight off testing, so issues get caught without the
+            pre-release scramble.
           </p>
           <div className="hero__actions">
             <button type="button" className="btn btn-primary">Get Started</button>

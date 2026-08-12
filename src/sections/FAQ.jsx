@@ -4,36 +4,36 @@ import './FAQ.css';
 
 const ITEMS = [
   {
-    q: 'What is TestDart?',
-    a: 'TestDart is a QA test-management platform for managing requirements, test cases, executions, and reports, with AI-assisted test generation and browser-based automated execution.',
+    q: 'What is testdart?',
+    a: 'testdart is a QA test-management platform for managing requirements, test cases, executions, and reports, with AI-assisted test generation and browser-based automated execution.',
   },
   {
-    q: 'How does TestDart generate test cases?',
-    a: 'Provide a requirement as free text, an imported Jira issue, or a supported document. TestDart generates structured test cases you review and approve before anything runs.',
+    q: 'How does testdart generate test cases?',
+    a: 'Provide a requirement as free text, an imported Jira issue, or a supported document. testdart generates structured test cases you review and approve before anything runs.',
   },
   {
-    q: 'Can TestDart execute tests automatically?',
-    a: "Once test cases are approved, TestDart's automation agent drives a real browser session and carries them out step by step, with progress visible as the run happens.",
+    q: 'Can testdart execute tests automatically?',
+    a: "Once test cases are approved, testdart's automation agent runs them in a real browser, step by step, without someone driving it manually.",
   },
   {
     q: 'Can I review test cases before they are executed?',
     a: 'Yes. Generated test cases go through a review and approval step, and nothing runs until your team approves it.',
   },
   {
-    q: 'Can TestDart work with Jira?',
-    a: 'Yes. Connect your Jira account and import an issue directly into TestDart as a requirement.',
+    q: 'Can testdart work with Jira?',
+    a: 'Yes. Connect your Jira account and import an issue directly into testdart as a requirement.',
   },
   {
-    q: 'Does TestDart support manual testing?',
+    q: 'Does testdart support manual testing?',
     a: 'Yes. Test suites, folders, and test cases can be managed and executed manually, with status tracking, bulk updates, and comments alongside the AI-assisted workflow.',
   },
   {
-    q: 'Can TestDart generate execution reports?',
-    a: 'Yes. Execution results are compiled into an AI-written report with a pass/fail verdict, so your team can review outcomes without assembling the report by hand.',
+    q: 'Can testdart generate execution reports?',
+    a: 'Yes. testdart compiles execution results into an AI-written report with a pass/fail verdict for each test.',
   },
   {
-    q: 'Who is TestDart designed for?',
-    a: 'TestDart is built for QA and software teams that want a connected workflow from requirements through test execution and reporting, instead of separate disconnected tools.',
+    q: 'Who is testdart designed for?',
+    a: 'QA and engineering teams who need testing to keep pace with releases without growing headcount, from small teams to larger QA organizations.',
   },
 ];
 
@@ -46,7 +46,7 @@ export default function FAQ() {
         <SectionHead className="section-head--center">
           <span className="eyebrow">FAQ</span>
           <h2>Frequently asked questions</h2>
-          <p>Answers to the questions teams ask when evaluating TestDart.</p>
+          <p>Answers to the questions teams ask when evaluating testdart.</p>
         </SectionHead>
 
         <div className="faq-list">
