@@ -88,28 +88,7 @@
   border-color: rgba(55, 134, 53, 0.45);
   box-shadow: var(--shadow-lg), 0 0 0 1px rgba(55, 134, 53, 0.18);
 }
-/* Final card keeps the same position/spacing rhythm as every other reason
-   (see NODES) — only a mildly stronger border marks it as the last stop,
-   no layout difference. */
-.reason-journey__card.is-last {
-  border-color: rgba(55, 134, 53, 0.3);
-}
-.reason-journey__card.is-last.is-active {
-  background: linear-gradient(165deg, var(--white) 0%, var(--green-light) 100%);
-  border-color: var(--green);
-  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(55, 134, 53, 0.28), 0 0 32px rgba(55, 134, 53, 0.22);
-  transform: scale(1.04) rotate(0deg);
-}
-
-.reason-journey__index {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--green-dark);
-}
-
-.reason-journey__card h3 { margin-top: 14px; font-size: 20px; font-weight: 700; line-height: 1.3; }
+.reason-journey__card h3 { font-size: 20px; font-weight: 700; line-height: 1.3; }
 .reason-journey__card p { margin-top: 10px; font-size: 14.5px; line-height: 1.65; color: var(--slate-600); }
 
 .reason-journey__outcome {

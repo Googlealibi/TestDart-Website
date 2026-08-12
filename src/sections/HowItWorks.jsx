@@ -148,8 +148,8 @@ const STEPS = [
   },
   {
     label: 'Prepare',
-    title: 'Prepare tests for execution',
-    description: 'Review the generated tests and move the ones you need forward without rebuilding them manually.',
+    title: 'Ready to run, automatically',
+    description: 'In autonomous mode, generated tests move straight to execution. In copilot mode, your team picks which tests move forward first.',
     Visual: ReadyVisual,
   },
   {

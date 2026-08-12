@@ -25,14 +25,14 @@ const RUN_STEPS = [
 
 const ROWS = [
   {
-    eyebrow: 'AI Test Generation',
-    title: 'Skip the Blank Page When Writing Tests',
-    body: "Give testdart a requirement or document and get back structured test cases with clear steps and priority, ready for your team to review before anything runs.",
+    eyebrow: 'AI-Powered Automation',
+    title: 'From Requirement to Running Test, Automatically',
+    body: "Give testdart a requirement or document and it handles the rest: generating structured test cases and running them in a real browser, without your team building any of it by hand.",
     list: [
       { Icon: DocumentIcon, text: 'Start from a requirement or document' },
-      { Icon: ImportIcon, text: 'Get structured steps and priority set automatically' },
-      { Icon: BrowserIcon, text: 'Review and edit before anything is marked ready' },
-      { Icon: ActivityIcon, text: "Skip rebuilding tests from scratch for every requirement" },
+      { Icon: ImportIcon, text: 'Get structured test cases with clear steps, generated automatically' },
+      { Icon: BrowserIcon, text: 'Tests run in a real browser without manual setup' },
+      { Icon: ActivityIcon, text: 'Track progress as execution happens, end to end' },
     ],
     cta: { label: 'Get Started' },
   },
@@ -51,7 +51,7 @@ const ROWS = [
   {
     eyebrow: 'Self-Healing Execution',
     title: '100% self-healing. No code at all.',
-    body: "Applications change all the time, a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, testdart is built to notice what changed and adjust the test so it can keep running. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
+    body: "Applications change all the time, a button moves, a label gets renamed, a flow gets tweaked. Instead of every small change breaking your tests, testdart is built to notice what changed and adjust the test so it can keep running, with no scripts to write and no code to maintain. That means less time spent patching broken tests after every update, and more time spent actually testing your application.",
     list: [
       { Icon: PlayIcon, text: 'Reduce the need to write and maintain test scripts manually' },
       { Icon: SparkleIcon, text: 'Keep running through small application changes without a rewrite' },

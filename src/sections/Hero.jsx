@@ -23,8 +23,8 @@ export default function Hero() {
           </h1>
           <p className="hero__sub">
             Last-minute changes shouldn't leave your QA team rushing to get everything tested.
-            testdart takes the manual weight off testing, so issues get caught without the
-            pre-release scramble.
+            testdart automates the manual testing work, so your team catches issues early
+            instead of scrambling right before release.
           </p>
           <div className="hero__actions">
             <button type="button" className="btn btn-primary">Get Started</button>

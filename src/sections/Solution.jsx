@@ -135,7 +135,6 @@ export default function Solution() {
                 <div
                   className={`reason-journey__card ${i === activeIndex ? 'is-active' : ''} ${i < activeIndex ? 'is-done' : ''} ${i === REASONS.length - 1 ? 'is-last' : ''}`}
                 >
-                  <span className="reason-journey__index">{String(i + 1).padStart(2, '0')}</span>
                   <h3>{r.title}</h3>
                   <p>{r.body}</p>
                   <span className="reason-journey__outcome">{r.outcome}</span>

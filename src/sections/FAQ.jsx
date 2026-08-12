@@ -5,35 +5,35 @@ import './FAQ.css';
 const ITEMS = [
   {
     q: 'What is testdart?',
-    a: 'testdart is a QA test-management platform for managing requirements, test cases, executions, and reports, with AI-assisted test generation and browser-based automated execution.',
-  },
-  {
-    q: 'How does testdart generate test cases?',
-    a: 'Provide a requirement as free text, an imported Jira issue, or a supported document. testdart generates structured test cases you review and approve before anything runs.',
-  },
-  {
-    q: 'Can testdart execute tests automatically?',
-    a: "Once test cases are approved, testdart's automation agent runs them in a real browser, step by step, without someone driving it manually.",
-  },
-  {
-    q: 'Can I review test cases before they are executed?',
-    a: 'Yes. Generated test cases go through a review and approval step, and nothing runs until your team approves it.',
-  },
-  {
-    q: 'Can testdart work with Jira?',
-    a: 'Yes. Connect your Jira account and import an issue directly into testdart as a requirement.',
-  },
-  {
-    q: 'Does testdart support manual testing?',
-    a: 'Yes. Test suites, folders, and test cases can be managed and executed manually, with status tracking, bulk updates, and comments alongside the AI-assisted workflow.',
-  },
-  {
-    q: 'Can testdart generate execution reports?',
-    a: 'Yes. testdart compiles execution results into an AI-written report with a pass/fail verdict for each test.',
+    a: 'testdart is an AI-assisted QA platform that helps teams create, manage, execute, and review software tests from their project requirements. It brings key testing activities into one connected workspace, reducing the manual effort involved in preparing and running tests.',
   },
   {
     q: 'Who is testdart designed for?',
-    a: 'QA and engineering teams who need testing to keep pace with releases without growing headcount, from small teams to larger QA organizations.',
+    a: 'testdart is designed for QA teams, software development teams, and organizations that want to make their testing process more efficient and easier to manage. It can be useful for teams handling frequent releases, changing requirements, and large volumes of test cases.',
+  },
+  {
+    q: 'How does testdart create test cases?',
+    a: "You can provide project requirements, user stories, Jira issues, or relevant documents. testdart analyzes that information and generates structured test cases, ready to run on their own in autonomous mode, or for your team to review and select first in copilot mode.",
+  },
+  {
+    q: 'Can my team review test cases before they run?',
+    a: "That depends on the mode. In copilot mode, your team reviews the generated test cases and chooses which ones move forward before execution. In autonomous mode, testdart generates and runs tests on its own, with results available to review afterward.",
+  },
+  {
+    q: 'Can testdart execute tests automatically?',
+    a: "Yes. testdart executes test cases through a real browser and gives your team visibility into the execution process and results, cutting down on repetitive manual execution.",
+  },
+  {
+    q: 'Do I need to write automation code?',
+    a: "No. testdart is built to remove the automation code your team would otherwise write by hand, turning requirements and test scenarios directly into executable browser-based tests.",
+  },
+  {
+    q: 'What kind of results and reports does testdart provide?',
+    a: "After execution, testdart provides test results and reporting that help your team understand what was tested, what passed or failed, and where attention may be needed.",
+  },
+  {
+    q: 'Can testdart fit into our existing development and QA workflow?',
+    a: "Yes. testdart is built around how modern teams already manage requirements and testing. It works with inputs like Jira issues and project documents, bringing test creation, execution, and reporting into one connected workflow, with review built in whenever you choose copilot mode.",
   },
 ];
 

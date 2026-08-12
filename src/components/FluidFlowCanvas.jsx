@@ -57,8 +57,8 @@ export default function FluidFlowCanvas() {
 
     const render = () => {
       time += 0.006;
-      mouse.x += (mouse.targetX - mouse.x) * 0.08;
-      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+      mouse.x += (mouse.targetX - mouse.x) * 0.35;
+      mouse.y += (mouse.targetY - mouse.y) * 0.35;
 
       ctx.clearRect(0, 0, width, height);
 
