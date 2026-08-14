@@ -27,8 +27,8 @@ export default function Hero() {
             instead of scrambling right before release.
           </p>
           <div className="hero__actions">
-            <button type="button" className="btn btn-primary">Get Started</button>
-            <a href="#demo" className="btn btn-secondary">Watch Demo</a>
+            <button type="button" className="btn btn-primary">CTA</button>
+            <a href="#demo" className="btn btn-secondary">CTA 2</a>
           </div>
           <div className="hero__trust">
             {TRUST_ITEMS.map(({ Icon, label }) => (

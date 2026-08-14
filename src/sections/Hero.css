@@ -77,9 +77,16 @@
 
 .hero__trust-icon {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  color: var(--green);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--green-light);
+  color: var(--green-dark);
 }
+.hero__trust-icon svg { width: 11px; height: 11px; }
 
 .hero__visual { position: relative; }
 

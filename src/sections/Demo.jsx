@@ -16,7 +16,7 @@ export default function Demo() {
             </SectionHead>
 
             <div className="cta__actions">
-              <button type="button" className="btn btn-primary">Get Started</button>
+              <button type="button" className="btn btn-primary">CTA</button>
             </div>
           </div>
 

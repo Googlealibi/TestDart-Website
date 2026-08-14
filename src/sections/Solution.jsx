@@ -145,7 +145,7 @@ export default function Solution() {
         </div>
 
         <div className="cta__actions reason-cta">
-          <button type="button" className="btn btn-primary">Get Started</button>
+          <button type="button" className="btn btn-primary">CTA</button>
           <a href="#ai-generation" className="btn btn-secondary">Explore Features</a>
         </div>
       </div>

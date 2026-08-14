@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import './Navbar.css';
 
 const LINKS = [
-  { label: 'Features', href: '#ai-generation' },
   { label: 'Pricing', href: '#pricing' },
-  // Not wired to a page section yet — wire it up once Contact is implemented.
-  { label: 'Contact', href: '#contact', pending: true },
+  { label: 'Agentic QA', href: '#ai-generation' },
 ];
 
 export default function Navbar() {
@@ -42,7 +40,7 @@ export default function Navbar() {
 
           <div className="navbar__cta">
             <button type="button" className="navbar__login">Log In</button>
-            <button type="button" className="btn btn-primary">Get Started</button>
+            <button type="button" className="btn btn-primary">CTA</button>
           </div>
         </div>
 
@@ -63,7 +61,7 @@ export default function Navbar() {
             </a>
           ))}
           <button type="button" className="btn btn-secondary" onClick={() => setMenuOpen(false)}>Log In</button>
-          <button type="button" className="btn btn-primary" onClick={() => setMenuOpen(false)}>Get Started</button>
+          <button type="button" className="btn btn-primary" onClick={() => setMenuOpen(false)}>CTA</button>
         </div>
       )}
     </header>

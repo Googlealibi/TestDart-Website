@@ -34,7 +34,7 @@ const ROWS = [
       { Icon: BrowserIcon, text: 'Tests run in a real browser without manual setup' },
       { Icon: ActivityIcon, text: 'Track progress as execution happens, end to end' },
     ],
-    cta: { label: 'Get Started' },
+    cta: { label: 'CTA' },
   },
   {
     eyebrow: 'Project Brain',
@@ -46,7 +46,7 @@ const ROWS = [
       { Icon: ClockIcon, text: "Each new requirement automatically pulls from what's already uploaded" },
       { Icon: SparkleIcon, text: 'No need to upload or re-explain the same project details again' },
     ],
-    cta: { label: 'Get Started' },
+    cta: { label: 'CTA' },
   },
   {
     eyebrow: 'Self-Healing Execution',
@@ -58,7 +58,7 @@ const ROWS = [
       { Icon: ClipboardIcon, text: 'Adapt affected test steps when your application changes' },
       { Icon: ClockIcon, text: 'Spend less time fixing tests and more time testing your application' },
     ],
-    cta: { label: 'Get Started' },
+    cta: { label: 'CTA' },
   },
 ];
 

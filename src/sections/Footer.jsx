@@ -28,7 +28,7 @@ export default function Footer() {
           <h4>Company</h4>
           <a href={`mailto:${CONTACT_EMAIL}`}>Contact</a>
           <button type="button">Log In</button>
-          <button type="button">Get Started</button>
+          <button type="button">CTA</button>
         </div>
 
         <div className="footer__col">
